@@ -19,23 +19,26 @@ class AngleSensor
 
     void setAlphaFilterValue(float alpha)
     {
-        this.filteredVelocity.setAlpha(alpha);
+        filteredVelocity.setAlpha(alpha);
     }
 
-    void updateReading(float dt)
+    void read(float dt)
     {
         updateHardwareReading(dt);
 
-        this.angle = getHardwareAngleDeg();
-        this.velocity = getHardwareVelocityDegSec();
+        angle = getHardwareAngleDeg();
+        velocity = getHardwareVelocityDegSec();
 
-        this.filteredVelocity.update(this.velocity);
+        filteredVelocity.update(velocity);
     }
+
+    public:
+    virtual void hardwareSetup() = 0;
 
     protected: 
     virtual float getHardwareAngleDeg() = 0;
     virtual float getHardwareVelocityDegSec()=0;
-    virtual float updateHardwareReading(float dt) = 0;
+    virtual void updateHardwareReading(float dt) = 0;
 
     public:
     float getAngleDeg()

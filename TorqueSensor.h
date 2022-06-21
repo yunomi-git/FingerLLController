@@ -5,7 +5,7 @@ class TorqueSensor {
 public:
 	TorqueSensor() = default;
 
-	virtual float updateReading(float dt) = 0;
+	virtual float read(float dt) = 0;
 	virtual float getTorqueNm() = 0;
 
 	virtual void tare(int times=10) = 0;
@@ -17,6 +17,9 @@ public:
 	void setTared() {
 		is_tared = true;
 	}
+	
+    public:
+    virtual void hardwareSetup() = 0;
 
 protected:
 	float getRawOffset() {

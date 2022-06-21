@@ -1,15 +1,15 @@
 #include "ArduinoSketch.h"
 #include "Run_FingerController.h"
 
-ArduinoSketch sketch;
+ArduinoSketch *sketch;
 
-setup() 
+void setup() 
 {
-    sketch = Run_FingerController();
-    sketch.setup();
+    sketch = new Run_FingerController();
+    sketch->setup();
 }
 
-loop()
+void loop()
 {
-    sketch.loop();
+    sketch->loop();
 }

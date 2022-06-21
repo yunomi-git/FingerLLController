@@ -13,10 +13,13 @@ struct PIDGains {
 
 class PIDController {
 public:
+	PIDController() = default;
+	
 	PIDController(PIDGains gains) 
 	{
-		this.gains = gains;
+		this->gains = gains;
 		prevError = 0.0;
+		errorIntegrator = 0.0;
 		// dt_timer.reset();
 		// dt_timer.usePrecision();
 	}
@@ -26,19 +29,19 @@ public:
 	// }
 
 	void setPIDGains(PIDGains gains) {
-		this.gains = gains;
+		this->gains = gains;
 	}
 
 	void resetIntegrator()
 	{
-		self.errorIntegrator = 0.0;
+		errorIntegrator = 0.0;
 	}
 
 	float stepAndGet(float error, float dt) {
 		// float error = *error_ref;
 		// float dt = dt_timer.dtSec();
 		// dt_timer.reset();
-		float derror = (error - this.prevError) / dt;
+		float derror = (error - prevError) / dt;
 		prevError = error;
 
 		errorIntegrator += error * dt;

@@ -6,23 +6,27 @@
 #include "Timer.h"
 #include "MathUtil.h"
 
-class PT15AngleSensor : protected AngleSensor 
+class PT15AngleSensor : public AngleSensor 
 {
     private:
     Potentiometer potentiometer;
     // Timer velocityTimer;
-    const MAX_ANGLE_DEG = 135.0;
-    const MIN_ANGLE_DEG = -135.0;
+    static const float MAX_ANGLE_DEG = 135.0;
+    static const float MIN_ANGLE_DEG = -135.0;
 
     float angle = 0.0;
     float velocity = 0.0;
     float alpha = 1.0;
 
+    byte readPin;
+
     public:
+    PT15AngleSensor() = default;
+    
     PT15AngleSensor(byte readPin, float alpha=1.0)
     {
-        self.readPin = readPin;
-        self.alpha = alpha;
+        this->readPin = readPin;
+        this->alpha = alpha;
         // velocityTimer = Timer();
         // velocityTimer.usePrecision();
         // velocityTimer.restart();
@@ -30,20 +34,21 @@ class PT15AngleSensor : protected AngleSensor
 
     void hardwareSetup()
     {
-        potentiometer.hardwareSetup(self.readPin);
+        potentiometer = Potentiometer(readPin);
+        potentiometer.hardwareSetup();
         setAlphaFilterValue(alpha);
     }
 
     private: 
     void updateHardwareReading(float dt)
     {
-        float lastAngle = this.angle;
+        float lastAngle = angle;
         float rawRead = potentiometer.getReadingNormalized();
-        this.angle = ;
+        angle = fmap(rawRead, 0.0, 1.0, MIN_ANGLE_DEG, MAX_ANGLE_DEG);
 
         // float dt = this.velocityTimer.dt();
         // this.velocityTimer.restart();
-        this.velocity = (this.angle - lastAngle) / dt;
+        velocity = (angle - lastAngle) / dt;
     }
 
     float getHardwareAngleDeg()

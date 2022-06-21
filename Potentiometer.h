@@ -5,8 +5,10 @@
 
 class Potentiometer {
 public:
+    Potentiometer() = default;
+
 	Potentiometer(byte readPin) {
-        this.readPin = readPin;
+        this->readPin = readPin;
 	}
 
     void hardwareSetup() {

@@ -9,7 +9,7 @@ template <typename T> class AlphaFilter
 public:
     AlphaFilter(float alpha=1.0)
     {
-        this.alpha = alpha;
+        this->alpha = alpha;
     }
 
     void update(T data)
@@ -24,7 +24,7 @@ public:
 
     void setAlpha(float alpha)
     {
-        this.alpha = alpha;
+        this->alpha = alpha;
     }
 
 

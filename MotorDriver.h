@@ -8,7 +8,7 @@ public:
 	MotorDriver() = default;
 
 	MotorDriver(float supplyVoltage) {
-		this.supplyVoltage = supplyVoltage;
+		this->supplyVoltage = supplyVoltage;
 	}
 
 	virtual void hardwareSetup() = 0;
@@ -48,8 +48,8 @@ protected:
 	float supplyVoltage;
 
 private:
-	const int direction1 = 1;
-	const int direction2 = -1;
+	static const int direction1 = 1;
+	static const int direction2 = -1;
 
 	int direction = direction1;
 

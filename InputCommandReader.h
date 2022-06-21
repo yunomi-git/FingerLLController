@@ -1,6 +1,8 @@
 #ifndef __ICR__
 #define __ICR__
 
+#include "InputCommand.h"
+
 class InputCommandReader
 {
     public:
@@ -9,9 +11,9 @@ class InputCommandReader
 
     }
 
-    virtual void update() = 0;
+    virtual void read() = 0;
 
-    virtual InputControlCommand getInputCommand() = 0;
-}
+    virtual InputCommand getInputCommand() = 0;
+};
 
 #endif

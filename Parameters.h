@@ -31,7 +31,7 @@ struct HardwareParameters
         AngleSensorParam angle1;
         AngleSensorParam angle2;
         TorqueSensorParam torque1;
-        AngleSensorParam torque2;
+        TorqueSensorParam torque2;
     };
 
     MotorDriverParam motorDriver1;
@@ -94,7 +94,7 @@ struct ControllerParameters
         torque2Gains.ki = 0.0;
         torque2Gains.maxIntegrator = 0.0;
     }
-}
+};
 
 struct CalibrationHardwareParameters
 {
@@ -106,7 +106,7 @@ struct CalibrationHardwareParameters
     const byte ENC_A_PIN = 3;
     const byte ENC_B_PIN = 4;
     const float ENCODER_STEPS_PER_REV = 2400;
-}
+};
 
 
 #endif

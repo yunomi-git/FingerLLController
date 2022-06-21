@@ -6,27 +6,29 @@
 
 class PT15SeriesElasticSensor : public TorqueSensor {
 public:
+	PT15SeriesElasticSensor() = default;
+
 	PT15SeriesElasticSensor(byte readPin, float springConstant, float tareOffset) 
 	{
-		potentiometer = Potentiometer(readPin);
-		self.readPin = readPin;
-		self.springConstant = springConstant;
-		self.tareOffset = tareOffset;
+		this->readPin = readPin;
+		this->springConstant = springConstant;
+		this->tareOffset = tareOffset;
 	}
 
 	void hardwareSetup() {
-		potentiometer.hardwareSetup()
+		potentiometer = Potentiometer(readPin);
+		potentiometer.hardwareSetup();
 	}
 
 	void tare(int times=10) {
 		setTareOffset(tareOffset);
 	}
 
-	float updateReading(float dt)
+	float read(float dt)
 	{
 		float read = potentiometer.getReadingNormalized() - getRawOffset();
 		read = applyDeadband(read);
-		self.torque = convertReadToTorqueNm(read);
+		torque = convertReadToTorqueNm(read);
 	}
 
 	float getTorqueNm() {

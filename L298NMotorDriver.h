@@ -6,14 +6,14 @@
 #include "Constants.h"
 #include <Arduino.h>
 
-class L298NMotorDriver : protected MotorDriver {
+class L298NMotorDriver : public MotorDriver {
 public:
 	L298NMotorDriver() = default;
 
     L298NMotorDriver(float supplyVoltage, byte nENA, byte nDIR1, byte nDIR2) : MotorDriver(supplyVoltage) {
-        this.ENA = ENA;
-        this.DIR1 = DIR1;
-        this.DIR2 = DIR2;
+        this->ENA = ENA;
+        this->DIR1 = DIR1;
+        this->DIR2 = DIR2;
     }
 
     void hardwareSetup() 

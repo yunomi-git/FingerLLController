@@ -8,16 +8,17 @@
 #include "JavaInputCommand.h"
 #include "ArduinoSketch.h"
 #include "Parameters.h"
+#include "OutputWriter.h"
 
 class Run_FingerController : public ArduinoSketch
 {
     FingerLowLevelController fingerLowLevelController;
-    InputCommandReader inputCommandReader;
-    OutputWriter outputWriter;
+    InputCommandReader *inputCommandReader;
+    OutputWriter *outputWriter;
     bool useArduinoInput = true;
 
+public:
     Run_FingerController() = default;
-
     void setup()
     {
         HardwareParameters hp = HardwareParameters();
@@ -26,27 +27,25 @@ class Run_FingerController : public ArduinoSketch
 
         if (useArduinoInput)
         {
-            inputCommandReader = ArduinoInputCommand();
+            inputCommandReader = new ArduinoInputCommand();
         }
         else
         {
-            inputCommandReader = JavaInputCommand();
+            inputCommandReader = new JavaInputCommand();
         }
     }
 
     void loop()
     {
-        inputCommandReader.update();
-        InputCommand inputCommand = inputCommandReader.getInputCommand();
-
-        float dt = getDT();
+        inputCommandReader->read();
+        InputCommand inputCommand = inputCommandReader->getInputCommand();
 
         fingerLowLevelController.submitCommand(inputCommand);
-        fingerLowLevelController.doControl(dt);
-        SensorData sensorData = fingerLowLevelController.getMeasurements(dt);
+        fingerLowLevelController.doControl();
+        SensorData sensorData = fingerLowLevelController.getMeasurements();
 
-        outputWriter.write(sensorData);
+        outputWriter->write(sensorData);
     }
-}
+};
 
 #endif
