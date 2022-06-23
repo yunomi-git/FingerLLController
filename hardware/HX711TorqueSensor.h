@@ -8,17 +8,17 @@ private:
     HX711ForceSensor forceSensor;
 
     //float mounting_length_mm = 80;
-    float mountingLength;
+    float mountingLengthMM;
 
     float torque;
     
 public:
 	HX711TorqueSensor() = default;
 
-	HX711TorqueSensor(byte dout, byte pd_sck, float scale, float mountingLength) 
+	HX711TorqueSensor(byte dout, byte pd_sck, float scale, float mountingLengthMM) 
 	{
 		forceSensor = HX711ForceSensor(dout, pd_sck, scale);
-        this->mountingLength = mountingLength;
+        this->mountingLengthMM = mountingLengthMM;
 	}
 
 	void hardwareSetup() 
@@ -35,7 +35,7 @@ public:
 	{
         forceSensor.read();
         float force = forceSensor.getForceN();
-        torque = force * mounting_length_mm / 1000.0;
+        torque = force * mountingLengthMM / 1000.0;
 	}
 
 	float getTorqueNm() {
