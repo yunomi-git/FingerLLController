@@ -24,7 +24,7 @@ public:
 		setTareOffset(tareOffset);
 	}
 
-	float read(float dt)
+	void read(float dt)
 	{
 		float read = potentiometer.getReadingNormalized() - getRawOffset();
 		read = applyDeadband(read);

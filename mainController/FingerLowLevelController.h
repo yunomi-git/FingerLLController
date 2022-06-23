@@ -12,8 +12,8 @@
 #include "PIDController.h"
 #include "ControllerParameters.h"
 
-#include "../externalInterface/ControlMode.h"
-#include "../externalInterface/JointSpaceCommand.h"
+#include "externalInterface/ControlMode.h"
+#include "externalInterface/JointSpaceCommand.h"
 
 class FingerLowLevelController
 {

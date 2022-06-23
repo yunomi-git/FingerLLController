@@ -1,13 +1,12 @@
-#ifndef __FINTORQUESW__
-#define __FINTORQUESW__
+#ifndef __FINFORCESW__
+#define __FINFORCESW__
 
-class TorqueSensor {
+class ForceSensor {
 public:
-	TorqueSensor() = default;
+	ForceSensor() = default;
 
-	virtual void hardwareSetup() = 0;
 	virtual void read(float dt) = 0;
-	virtual float getTorqueNm() = 0;
+	virtual float getForceN() = 0;
 
 	virtual void tare(int times=10) = 0;
 
@@ -17,7 +16,10 @@ public:
 
 	void setTared() {
 		isTared = true;
-	}    
+	}
+	
+    public:
+    virtual void hardwareSetup() = 0;
 
 protected:
 	float getRawOffset() {

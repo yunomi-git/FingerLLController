@@ -3,11 +3,9 @@
 
 #include "JointSpaceCommand.h"
 #include "ControlMode.h"
+#include "JointSpaceCommandInterface.h"
 
-#include "../abstractHardware/AngleSensor.h"
-#include "../externalInterface/JointSpaceCommandInterface.h"
-
-#include "../hardware/PT15AngleSensor.h"
+#include "../../hardware/PT15AngleSensor.h"
 
 class ArduinoInputCommand : public JointSpaceCommandInterface
 {
