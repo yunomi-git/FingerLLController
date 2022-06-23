@@ -1,13 +1,13 @@
 #ifndef __FLLC__
 #define __FLLC__
 
-#include "../abstractHardware/SensorDataPacker.h"
-#include "../abstractHardware/SensorData.h"
-#include "../abstractHardware/VoltageCommand.h"
-#include "../abstractHardware/ActuatorWriter.h"
+#include "hardwareInterface/SensorDataPacker.h"
+#include "hardwareInterface/SensorData.h"
+#include "hardwareInterface/VoltageCommand.h"
+#include "hardwareInterface/ActuatorWriter.h"
 
-#include "../hardware/HardwareParameters.h"
-#include "../hardware/HardwareManager.h"
+#include "hardwareInterface/HardwareParameters.h"
+#include "hardwareInterface/HardwareManager.h"
 
 #include "PIDController.h"
 #include "ControllerParameters.h"

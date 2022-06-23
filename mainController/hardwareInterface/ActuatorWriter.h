@@ -1,7 +1,7 @@
 #ifndef __ACTUATORWRITER__
 #define __ACTUATORWRITER__
 
-#include "MotorDriver.h"
+#include "../../abstractHardware/MotorDriver.h"
 #include "VoltageCommand.h"
 
 class ActuatorWriter

@@ -2,7 +2,7 @@
 #define __RUN_SESCalibration__
 
 #include "../ArduinoSketch.h"
-#include "../hardware/HardwareParameters.h"
+#include "hardwareInterface/HardwareParameters.h"
 
 #include "../hardware/PT15SeriesElasticSensor.h"
 #include "../hardware/HX711TorqueSensor.h"

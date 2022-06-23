@@ -1,13 +1,13 @@
 #ifndef __HARDWAREMANAGER__
 #define __HARDWAREMANAGER__
 
-#include "PT15AngleSensor.h"
-#include "PT15SeriesElasticSensor.h"
-#include "L298NMotorDriver.h"
-#include "HardwareParameters.h"
+#include "../../hardware/PT15AngleSensor.h"
+#include "../../hardware/PT15SeriesElasticSensor.h"
+#include "../../hardware/L298NMotorDriver.h"
 
-#include "../abstractHardware/SensorDataPacker.h"
-#include "../abstractHardware/ActuatorWriter.h"
+#include "HardwareParameters.h"
+#include "SensorDataPacker.h"
+#include "ActuatorWriter.h"
 
 class HardwareManager
 {

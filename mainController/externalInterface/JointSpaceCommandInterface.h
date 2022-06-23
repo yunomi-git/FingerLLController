@@ -2,7 +2,7 @@
 #define __ICR__
 
 #include "JointSpaceCommand.h"
-#include "../../abstractHardware/SensorData.h"
+#include "../hardwareInterface/SensorData.h"
 
 class JointSpaceCommandInterface
 {

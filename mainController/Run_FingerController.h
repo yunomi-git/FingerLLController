@@ -9,7 +9,7 @@
 #include "externalInterface/JavaCommandInterface.h"
 
 #include "../ArduinoSketch.h"
-#include "../hardware/HardwareParameters.h"
+#include "hardwareInterface/HardwareParameters.h"
 
 class Run_FingerController : public ArduinoSketch
 {

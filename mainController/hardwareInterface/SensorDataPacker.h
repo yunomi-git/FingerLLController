@@ -1,8 +1,9 @@
 #ifndef __SENSORDATAPACKER__
 #define __SENSORDATAPACKER__
 
-#include "AngleSensor.h"
-#include "TorqueSensor.h"
+#include "../../abstractHardware/AngleSensor.h"
+#include "../../abstractHardware/TorqueSensor.h"
+
 #include "SensorData.h"
 
 class SensorDataPacker
