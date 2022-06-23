@@ -3,18 +3,18 @@
 
 
 #include "FingerLowLevelController.h"
-#include "InputCommandReader.h"
-#include "ArduinoInputCommand.h"
-#include "JavaInputCommand.h"
-#include "ArduinoSketch.h"
-#include "Parameters.h"
-#include "OutputWriter.h"
+
+#include "../externalInterface/JointSpaceCommandInterface.h"
+#include "../externalInterface/ArduinoCommandInterface.h"
+#include "../externalInterface/JavaCommandInterface.h"
+
+#include "../ArduinoSketch.h"
+#include "../hardware/HardwareParameters.h"
 
 class Run_FingerController : public ArduinoSketch
 {
     FingerLowLevelController fingerLowLevelController;
-    InputCommandReader *inputCommandReader;
-    OutputWriter *outputWriter;
+    JointSpaceCommandInterface *jointSpaceCommandInterface;
     bool useArduinoInput = true;
 
 public:
@@ -27,24 +27,23 @@ public:
 
         if (useArduinoInput)
         {
-            inputCommandReader = new ArduinoInputCommand();
+            jointSpaceCommandInterface = new ArduinoInputCommand();
         }
         else
         {
-            inputCommandReader = new JavaInputCommand();
+            jointSpaceCommandInterface = new JavaCommandInterface();
         }
     }
 
     void loop()
     {
-        inputCommandReader->read();
-        InputCommand inputCommand = inputCommandReader->getInputCommand();
+        JointSpaceCommand jointSpaceCommand = jointSpaceCommandInterface->recieve();
 
-        fingerLowLevelController.submitCommand(inputCommand);
+        fingerLowLevelController.submitCommand(jointSpaceCommand);
         fingerLowLevelController.doControl();
         SensorData sensorData = fingerLowLevelController.getMeasurements();
 
-        outputWriter->write(sensorData);
+        jointSpaceCommandInterface->send(sensorData);
     }
 };
 

@@ -1,7 +1,7 @@
 #ifndef __FIN_MOTORDRIVERSW__
 #define __FIN_MOTORDRIVERSW__
 
-#include "MathUtil.h"
+#include "../util/MathUtil.h"
 
 class MotorDriver {
 public:

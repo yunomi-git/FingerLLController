@@ -1,9 +1,9 @@
 #ifndef __FIN_L298NDRIVERSW__
 #define __FIN_L298NDRIVERSW__
 
-#include "MotorDriver.h"
-#include "MathUtil.h"
-#include "Constants.h"
+#include "../abstractHardware/MotorDriver.h"
+#include "../util/MathUtil.h"
+#include "../Constants.h"
 #include <Arduino.h>
 
 class L298NMotorDriver : public MotorDriver {

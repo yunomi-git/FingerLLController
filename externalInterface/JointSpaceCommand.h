@@ -3,7 +3,7 @@
 
 #include "ControlMode.h"
 
-struct InputCommand
+struct JointSpaceCommand
 {
     ControlMode mode;
     float angle1;

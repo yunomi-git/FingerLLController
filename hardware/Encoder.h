@@ -2,8 +2,8 @@
 #define __FINENCODER__
 
 #include <arduino.h>
-#include "Constants.h"
-#include "Timer.h"
+#include "../Constants.h"
+#include "../util/Timer.h"
 
 class Encoder {
 

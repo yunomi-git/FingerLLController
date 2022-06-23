@@ -1,7 +1,7 @@
 #ifndef __FIN_POTENT__
 #define __FIN_POTENT__
 
-#include "Constants.h"
+#include "../Constants.h"
 
 class Potentiometer {
 public:

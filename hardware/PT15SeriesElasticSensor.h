@@ -1,7 +1,7 @@
 #ifndef __FINSEASW__
 #define __FINSEASW__
 
-#include "TorqueSensor.h"
+#include "../abstractHardware/TorqueSensor.h"
 #include "Potentiometer.h"
 
 class PT15SeriesElasticSensor : public TorqueSensor {

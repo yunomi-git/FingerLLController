@@ -1,5 +1,5 @@
 #include "ArduinoSketch.h"
-#include "Run_FingerController.h"
+#include "mainController/Run_FingerController.h"
 
 ArduinoSketch *sketch;
 

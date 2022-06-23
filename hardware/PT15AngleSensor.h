@@ -1,10 +1,12 @@
 #ifndef __PT15Encoder__
 #define __PT15Encoder__
 
-#include "AngleSensor.h"
+#include "../abstractHardware/AngleSensor.h"
+
 #include "Potentiometer.h"
-#include "Timer.h"
-#include "MathUtil.h"
+
+#include "../util/Timer.h"
+#include "../util/MathUtil.h"
 
 class PT15AngleSensor : public AngleSensor 
 {

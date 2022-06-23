@@ -1,15 +1,19 @@
 #ifndef __FLLC__
 #define __FLLC__
 
-#include "SensorDataPacker.h"
-#include "SensorData.h"
-#include "VoltageCommand.h"
+#include "../abstractHardware/SensorDataPacker.h"
+#include "../abstractHardware/SensorData.h"
+#include "../abstractHardware/VoltageCommand.h"
+#include "../abstractHardware/ActuatorWriter.h"
+
+#include "../hardware/HardwareParameters.h"
+#include "../hardware/HardwareManager.h"
+
 #include "PIDController.h"
-#include "ControlMode.h"
-#include "InputCommand.h"
-#include "Parameters.h"
-#include "ActuatorWriter.h"
-#include "HardwareManager.h"
+#include "ControllerParameters.h"
+
+#include "../externalInterface/ControlMode.h"
+#include "../externalInterface/JointSpaceCommand.h"
 
 class FingerLowLevelController
 {
@@ -35,9 +39,9 @@ public:
         timer.set(MIN_TIME_BETWEEN_CONTROL);
     }
 
-    void submitCommand(InputCommand inputCommand) 
+    void submitCommand(JointSpaceCommand jointSpaceCommand) 
     {
-        this->inputCommand = inputCommand;
+        this->jointSpaceCommand = jointSpaceCommand;
     }
 
     void doControl()
@@ -46,10 +50,14 @@ public:
         {
             float dt = timer.dt();
             timer.restart();
+
             sensorDataPacker->read(dt);
             sensorData = sensorDataPacker->getReading();
 
+            // controlComputer.update(sensorData, jointSpaceCommand, dt);
+            // VoltageCommand voltageCommand = controlComputer.getVoltage();
             VoltageCommand voltageCommand = computeVoltage(dt);
+
             actuatorWriter->setCommand(voltageCommand);
             actuatorWriter->write();
         }
@@ -59,14 +67,14 @@ public:
 private:
     VoltageCommand computeVoltage(float dt)
     {
-        ControlMode controlMode = inputCommand.mode;
+        ControlMode controlMode = jointSpaceCommand.mode;
         switch (controlMode)
         {
             // if control mode changed, reset integrators
             case POSITION:
-                return computePositionControlCommand(inputCommand.angle1, inputCommand.angle2, dt);
+                return computePositionControlCommand(jointSpaceCommand.angle1, jointSpaceCommand.angle2, dt);
             case TORQUE:
-                return computeTorqueControlCommand(inputCommand.torque1, inputCommand.torque2, dt);
+                return computeTorqueControlCommand(jointSpaceCommand.torque1, jointSpaceCommand.torque2, dt);
             default:
                 break;
         }
@@ -100,7 +108,7 @@ public:
     }
 
     private:
-    InputCommand inputCommand;
+    JointSpaceCommand jointSpaceCommand;
 
     HardwareManager hardwareManager;
     

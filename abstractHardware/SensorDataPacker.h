@@ -2,11 +2,8 @@
 #define __SENSORDATAPACKER__
 
 #include "AngleSensor.h"
-#include "PT15AngleSensor.h"
 #include "TorqueSensor.h"
-#include "PT15SeriesElasticSensor.h"
 #include "SensorData.h"
-#include "Parameters.h"
 
 class SensorDataPacker
 {

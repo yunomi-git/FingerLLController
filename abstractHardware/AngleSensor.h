@@ -1,8 +1,7 @@
 #ifndef __ANGLESENSOR__
 #define __ANGLESENSOR__
 
-#include "Timer.h"
-#include "AlphaFilter.h"
+#include "../util/AlphaFilter.h"
 
 class AngleSensor
 {

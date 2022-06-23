@@ -3,10 +3,11 @@
 
 #include "PT15AngleSensor.h"
 #include "PT15SeriesElasticSensor.h"
-#include "SensorDataPacker.h"
 #include "L298NMotorDriver.h"
-#include "Parameters.h"
-#include "ActuatorWriter.h"
+#include "HardwareParameters.h"
+
+#include "../abstractHardware/SensorDataPacker.h"
+#include "../abstractHardware/ActuatorWriter.h"
 
 class HardwareManager
 {
