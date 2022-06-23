@@ -21,12 +21,13 @@ public:
         this->mountingLength = mountingLength;
 	}
 
-	void hardwareSetup() {
-		
+	void hardwareSetup() 
+    {
         forceSensor.hardwareSetup();
 	}
 
-	void tare(int times=10) {
+	void tare(int times=10) 
+    {
 		setTareOffset(tareOffset);
 	}
 
