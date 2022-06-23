@@ -7,8 +7,8 @@ ArduinoSketch *sketch;
 
 void setup() 
 {
-    // sketch = new Run_FingerController();
-    sketch = new Run_HX711Calibration();
+    sketch = new Run_FingerController();
+    // sketch = new Run_HX711Calibration();
     // sketch = new Run_SESCalibration();
     sketch->setup();
 }

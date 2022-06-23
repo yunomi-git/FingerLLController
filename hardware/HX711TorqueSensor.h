@@ -2,6 +2,7 @@
 #define __HX711Torque__
 
 #include "HX711ForceSensor.h"
+#include "../abstractHardware/TorqueSensor.h"
 
 class HX711TorqueSensor : public TorqueSensor {
 private:
@@ -26,14 +27,14 @@ public:
         forceSensor.hardwareSetup();
 	}
 
-	void tare(int times=10) 
+	void tare(int times=10) // how to tare?
     {
-		setTareOffset(tareOffset);
+		setTareOffset(0);  // toododo
 	}
 
 	void read(float dt)
 	{
-        forceSensor.read();
+        forceSensor.read(dt);
         float force = forceSensor.getForceN();
         torque = force * mountingLengthMM / 1000.0;
 	}

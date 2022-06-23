@@ -1,7 +1,10 @@
 #ifndef __FINTORQUESW__
 #define __FINTORQUESW__
 
-class TorqueSensor {
+#include "Sensor.h"
+
+class TorqueSensor : public Sensor
+{
 public:
 	TorqueSensor() = default;
 
@@ -11,7 +14,7 @@ public:
 
 	virtual void tare(int times=10) = 0;
 
-	bool isTared() {
+	bool getIsTared() {
 		return isTared;
 	}
 

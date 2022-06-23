@@ -2,8 +2,9 @@
 #define __ANGLESENSOR__
 
 #include "../util/AlphaFilter.h"
+#include "Sensor.h"
 
-class AngleSensor
+class AngleSensor : public Sensor
 {
     private:
     float angle;

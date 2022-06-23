@@ -1,13 +1,16 @@
 #ifndef __HX711Force__
 #define __HX711Force__
 
-#include "HX711/HX711.h"
+#include "HX711.h"
+#include "../abstractHardware/ForceSensor.h"
 
-class HX711ForceSensor : public ForceSensor {
+class HX711ForceSensor : public ForceSensor 
+{
 private:
     HX711 hx711;
     byte dout;
     byte pd_sck;
+    float scale;
 
     float KG_SCALE = 399000.f;
 	float GRAVITY = 9.81;
@@ -25,12 +28,12 @@ public:
 	}
 
 	void hardwareSetup() {
-		torque_sensor_HW.begin(dout, pd_sck);
-		torque_sensor_HW.set_scale(scale);
+		hx711.begin(dout, pd_sck);
+		hx711.set_scale(scale);
 	}
 
 	void tare(int times=10) {
-		setTareOffset(tareOffset);
+		setTareOffset(0);  //todo
 	}
 
 	void read(float dt)

@@ -20,7 +20,8 @@ class Run_HX711Calibration : public ArduinoSketch
     float printTime = 0.001;
 
 public:
-    Run_FingerController() = default;
+    Run_HX711Calibration() = default;
+    
     void setup()
     {
         HardwareParameters hp = HardwareParameters();
@@ -40,7 +41,7 @@ public:
             float dt = sensorTimer.dt();
             sensorTimer.restart();
 
-            referenceSensor.read();
+            referenceSensor.read(dt);
         }
         if (printTimer.isRinging())
         {

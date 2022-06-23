@@ -25,7 +25,8 @@ class Run_SESCalibration : public ArduinoSketch
     float printTime = 0.001;
 
 public:
-    Run_FingerController() = default;
+    Run_SESCalibration() = default;
+    
     void setup()
     {
         sesSensor = PT15SeriesElasticSensor(readPin, springConstant, tareOffset);
@@ -47,8 +48,8 @@ public:
             float dt = sensorTimer.dt();
             sensorTimer.restart();
 
-            sesSensor.read();
-            referenceSensor.read();
+            sesSensor.read(dt);
+            referenceSensor.read(dt);
         }
         if (printTimer.isRinging())
         {

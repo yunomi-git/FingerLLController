@@ -1,7 +1,10 @@
 #ifndef __FINFORCESW__
 #define __FINFORCESW__
 
-class ForceSensor {
+#include "Sensor.h"
+
+class ForceSensor : public Sensor 
+{
 public:
 	ForceSensor() = default;
 
@@ -10,7 +13,7 @@ public:
 
 	virtual void tare(int times=10) = 0;
 
-	bool isTared() {
+	bool getIsTared() {
 		return isTared;
 	}
 
