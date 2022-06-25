@@ -8,8 +8,8 @@ class HX711ForceSensor : public ForceSensor
 {
 private:
     HX711 hx711;
-    byte dout;
-    byte pd_sck;
+    byte dout; // mosi or dout
+    byte pd_sck; // sck aka spi serial clock
     float scale;
 
     float KG_SCALE = 399000.f;
@@ -20,16 +20,15 @@ private:
 public:
 	HX711ForceSensor() = default;
 
-	HX711ForceSensor(byte dout, byte pd_sck, float scale) 
+	HX711ForceSensor(byte dout, byte pd_sck) 
 	{
 		this->dout = dout;
 		this->pd_sck = pd_sck;
-        this->scale = scale;
 	}
 
 	void hardwareSetup() {
 		hx711.begin(dout, pd_sck);
-		hx711.set_scale(scale);
+		hx711.set_scale(KG_SCALE);
 	}
 
 	void tare(int times=10) {

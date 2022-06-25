@@ -72,9 +72,9 @@ private:
         {
             // if control mode changed, reset integrators
             case POSITION:
-                return computePositionControlCommand(jointSpaceCommand.angle1, jointSpaceCommand.angle2, dt);
+                return computePositionControlCommand(jointSpaceCommand.input1, jointSpaceCommand.input2, dt);
             case TORQUE:
-                return computeTorqueControlCommand(jointSpaceCommand.torque1, jointSpaceCommand.torque2, dt);
+                return computeTorqueControlCommand(jointSpaceCommand.input1, jointSpaceCommand.input2, dt);
             default:
                 break;
         }

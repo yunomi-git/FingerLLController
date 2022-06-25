@@ -3,6 +3,34 @@
 
 struct HardwareParameters
 {
+    HardwareParameters()
+    {        
+        motorDriver1.ENA_PIN = 10;
+        motorDriver1.DIR1_PIN = 8;
+        motorDriver1.DIR2_PIN = 9;
+
+        motorDriver2.ENA_PIN = 10;
+        motorDriver2.DIR1_PIN = 8;
+        motorDriver2.DIR2_PIN = 9;
+
+        sensorParameters.angle1.READ_PIN = 15;
+        sensorParameters.angle2.READ_PIN = 16;
+        sensorParameters.angle1.ALPHA = 0.8;
+        sensorParameters.angle2.ALPHA = 0.8;
+        
+        sensorParameters.torque1.READ_PIN = 17;
+        sensorParameters.torque1.SCALE = 3.2;
+        sensorParameters.torque1.RAW_OFFSET = 0.513;
+
+        sensorParameters.torque2.READ_PIN = 17;
+        sensorParameters.torque2.SCALE = 3.2;
+        sensorParameters.torque2.RAW_OFFSET = 0.513;
+    }
+
+    float MOTOR_VOLTAGE = 12.0;
+    byte POT_1_READ_PIN = 15;
+    byte POT_2_READ_PIN = 16;
+
     struct MotorDriverParam
     {
         float SUPPLY_VOLTAGE;
@@ -36,45 +64,7 @@ struct HardwareParameters
     MotorDriverParam motorDriver2;
     SensorParameters sensorParameters;
 
-    HardwareParameters()
-    {
-        motorDriver1.SUPPLY_VOLTAGE = 12.0;
-        motorDriver1.ENA_PIN = 10;
-        motorDriver1.DIR1_PIN = 8;
-        motorDriver1.DIR2_PIN = 9;
-
-        motorDriver2.SUPPLY_VOLTAGE = 12.0;
-        motorDriver2.ENA_PIN = 10;
-        motorDriver2.DIR1_PIN = 8;
-        motorDriver2.DIR2_PIN = 9;
-
-        sensorParameters.angle1.READ_PIN = 15;
-        sensorParameters.angle2.READ_PIN = 16;
-        sensorParameters.angle1.ALPHA = 0.8;
-        sensorParameters.angle2.ALPHA = 0.8;
-        
-        sensorParameters.torque1.READ_PIN = 17;
-        sensorParameters.torque1.SCALE = 3.2;
-        sensorParameters.torque1.RAW_OFFSET = 0.513;
-        sensorParameters.torque2.READ_PIN = 17;
-        sensorParameters.torque2.SCALE = 3.2;
-        sensorParameters.torque2.RAW_OFFSET = 0.513;
-    }
-
 
 };
-
-struct CalibrationHardwareParameters
-{
-    const byte HX_DOUT_PIN = 21;
-    const byte HX_SCK_PIN = 22;
-
-    const byte POT_READ_PIN = 15;
-
-    const byte ENC_A_PIN = 3;
-    const byte ENC_B_PIN = 4;
-    const float ENCODER_STEPS_PER_REV = 2400;
-};
-
 
 #endif

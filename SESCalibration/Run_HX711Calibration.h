@@ -1,8 +1,8 @@
-#ifndef __RUN_HX711Calibration__
-#define __RUN_HX711Calibration__
+#ifndef __SKETCH__
+#define __SKETCH__
 
 #include "../ArduinoSketch.h"
-#include "hardwareInterface/HardwareParameters.h"
+#include "./hardwareInterface/HardwareParameters.h"
 
 #include "../hardware/PT15SeriesElasticSensor.h"
 #include "../hardware/HX711TorqueSensor.h"
@@ -25,7 +25,7 @@ public:
     void setup()
     {
         HardwareParameters hp = HardwareParameters();
-        referenceSensor = HX711ForceSensor(dout, pd_sck, scale); // get these from hardware parameters
+        referenceSensor = HX711ForceSensor(hp.HX_DOUT_PIN, hp.HX_SCK_PIN); // get these from hardware parameters
         referenceSensor.hardwareSetup();
 
         sensorTimer.usePrecision();

@@ -1,5 +1,5 @@
-#ifndef __RUN_FING_CONTROL__
-#define __RUN_FING_CONTROL__
+#ifndef __SKETCH__
+#define __SKETCH__
 
 
 #include "FingerLowLevelController.h"
@@ -27,7 +27,7 @@ public:
 
         if (useArduinoInput)
         {
-            jointSpaceCommandInterface = new ArduinoInputCommand();
+            jointSpaceCommandInterface = new ArduinoInputCommand(hp.POT_1_READ_PIN, hp.POT_2_READ_PIN);
         }
         else
         {

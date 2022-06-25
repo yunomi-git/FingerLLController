@@ -6,10 +6,8 @@
 struct JointSpaceCommand
 {
     ControlMode mode;
-    float angle1;
-    float angle2;
-    float torque1;
-    float torque2;
+    float input1;
+    float input2;
 };
 
 #endif

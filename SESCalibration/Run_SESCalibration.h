@@ -1,5 +1,5 @@
-#ifndef __RUN_SESCalibration__
-#define __RUN_SESCalibration__
+#ifndef __SKETCH__
+#define __SKETCH__
 
 #include "../ArduinoSketch.h"
 #include "hardwareInterface/HardwareParameters.h"
@@ -11,10 +11,11 @@
 
 class Run_SESCalibration : public ArduinoSketch
 {
-    // alter these parameters for tuning
+    // ..... alter these parameters for tuning ......
     byte readPin = 16;
     float springConstant = 3.2;
     float tareOffset = 0.2;
+    // ..............................................
 
     PT15SeriesElasticSensor sesSensor;
     HX711ForceSensor referenceSensor;
@@ -29,8 +30,9 @@ public:
     
     void setup()
     {
+        HardwareParameters hp = HardwareParameters();
         sesSensor = PT15SeriesElasticSensor(readPin, springConstant, tareOffset);
-        referenceSensor = HX711TorqueSensor(dout, pd_sck, scale, mountingLength); // get these from hardware parameters
+        referenceSensor = HX711TorqueSensor(hp.HX_DOUT_PIN, hp.HX_SCK_PIN, hp.HX_MOUNTING_LENGTH); // get these from hardware parameters
 
         sesSensor.hardwareSetup();
         referenceSensor.hardwareSetup();

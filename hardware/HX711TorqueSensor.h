@@ -16,9 +16,9 @@ private:
 public:
 	HX711TorqueSensor() = default;
 
-	HX711TorqueSensor(byte dout, byte pd_sck, float scale, float mountingLengthMM) 
+	HX711TorqueSensor(byte dout, byte pd_sck, float mountingLengthMM) 
 	{
-		forceSensor = HX711ForceSensor(dout, pd_sck, scale);
+		forceSensor = HX711ForceSensor(dout, pd_sck);
         this->mountingLengthMM = mountingLengthMM;
 	}
 

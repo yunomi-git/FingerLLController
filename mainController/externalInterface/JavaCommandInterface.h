@@ -33,10 +33,8 @@ private:
     void parseInputString(String string)
     {
         jointSpaceCommand.mode = 0;
-        jointSpaceCommand.angle1 = 0;
-        jointSpaceCommand.angle2 = 0;
-        jointSpaceCommand.torque1 = 0.0;
-        jointSpaceCommand.torque2 = 0.0;
+        jointSpaceCommand.input1 = 0;
+        jointSpaceCommand.input2 = 0;
     }
 };
 
