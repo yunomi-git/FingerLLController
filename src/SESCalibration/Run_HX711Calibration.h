@@ -4,7 +4,6 @@
 #include "../ArduinoSketch.h"
 #include "./hardwareInterface/HardwareParameters.h"
 
-#include "../hardware/PT15SeriesElasticSensor.h"
 #include "../hardware/HX711TorqueSensor.h"
 
 #include "../util/Timer.h"
@@ -24,6 +23,7 @@ public:
     
     void setup()
     {
+        Serial.begin(152000);
         HardwareParameters hp = HardwareParameters();
         referenceSensor = HX711ForceSensor(hp.HX_DOUT_PIN, hp.HX_SCK_PIN); // get these from hardware parameters
         referenceSensor.hardwareSetup();
@@ -45,7 +45,7 @@ public:
         }
         if (printTimer.isRinging())
         {
-            //print referenceSensor.getTorqueNm();
+            Serial.println(referenceSensor.getForceN());
         }
 
     }

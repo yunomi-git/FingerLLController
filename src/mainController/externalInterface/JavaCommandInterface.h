@@ -4,6 +4,7 @@
 #include "JointSpaceCommand.h"
 #include "ControlMode.h"
 #include "JointSpaceCommandInterface.h"
+#include "Arduino.h"
 
 
 class JavaCommandInterface : public JointSpaceCommandInterface
@@ -32,7 +33,7 @@ public:
 private:
     void parseInputString(String string)
     {
-        jointSpaceCommand.mode = 0;
+        jointSpaceCommand.mode = ControlMode::POSITION;
         jointSpaceCommand.input1 = 0;
         jointSpaceCommand.input2 = 0;
     }

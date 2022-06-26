@@ -1,7 +1,7 @@
 #ifndef __HX711Force__
 #define __HX711Force__
 
-#include "HX711.h"
+#include <HX711.h>
 #include "../abstractHardware/ForceSensor.h"
 
 class HX711ForceSensor : public ForceSensor 

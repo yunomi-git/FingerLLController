@@ -13,23 +13,37 @@ struct HardwareParameters
         motorDriver2.DIR1_PIN = 8;
         motorDriver2.DIR2_PIN = 9;
 
-        sensorParameters.angle1.READ_PIN = 15;
-        sensorParameters.angle2.READ_PIN = 16;
+        sensorParameters.angle1.READ_PIN = 23;
+        sensorParameters.angle2.READ_PIN = 22;
         sensorParameters.angle1.ALPHA = 0.8;
         sensorParameters.angle2.ALPHA = 0.8;
         
-        sensorParameters.torque1.READ_PIN = 17;
+        sensorParameters.torque1.READ_PIN = 21;
         sensorParameters.torque1.SCALE = 3.2;
         sensorParameters.torque1.RAW_OFFSET = 0.513;
 
-        sensorParameters.torque2.READ_PIN = 17;
+        sensorParameters.torque2.READ_PIN = 20;
         sensorParameters.torque2.SCALE = 3.2;
         sensorParameters.torque2.RAW_OFFSET = 0.513;
+
+        
+        // sensorParameters.angle1.READ_PIN = 19;
+        // sensorParameters.angle2.READ_PIN = 18;
+        // sensorParameters.angle1.ALPHA = 0.8;
+        // sensorParameters.angle2.ALPHA = 0.8;
+        
+        // sensorParameters.torque1.READ_PIN = 17;
+        // sensorParameters.torque1.SCALE = 3.2;
+        // sensorParameters.torque1.RAW_OFFSET = 0.513;
+
+        // sensorParameters.torque2.READ_PIN = 16;
+        // sensorParameters.torque2.SCALE = 3.2;
+        // sensorParameters.torque2.RAW_OFFSET = 0.513;
     }
 
     float MOTOR_VOLTAGE = 12.0;
     byte POT_1_READ_PIN = 15;
-    byte POT_2_READ_PIN = 16;
+    byte POT_2_READ_PIN = 14;
 
     struct MotorDriverParam
     {

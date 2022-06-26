@@ -1,8 +1,10 @@
 #ifndef __AICR__
 #define __AICR__
 
+#include "Arduino.h"
 #include "JointSpaceCommand.h"
 #include "ControlMode.h"
+#include "../../hardware/Potentiometer.h"
 #include "JointSpaceCommandInterface.h"
 
 class ArduinoInputCommand : public JointSpaceCommandInterface
