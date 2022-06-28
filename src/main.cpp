@@ -8,6 +8,7 @@ ArduinoSketch *sketch;
 
 void setup() 
 {
+    Serial.begin(115200);
     // sketch = new Run_FingerController();
     sketch = new Run_HX711Calibration();
     // sketch = new Run_SESCalibration();
@@ -16,5 +17,6 @@ void setup()
 
 void loop()
 {
+
     sketch->loop();
 }

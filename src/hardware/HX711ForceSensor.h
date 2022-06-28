@@ -32,14 +32,22 @@ public:
 	}
 
 	void tare(int times=10) {
-		setTareOffset(0);  //todo
+		float avgReading = 0.0;
+		float delayTime = 0.01;
+		for (int i = 0; i < times; i++)
+		{
+			delay((int) (delayTime * 1000));
+			read(delayTime);
+			avgReading += force / times;
+		}
+		setTareOffset(avgReading);
 	}
 
 	void read(float dt)
 	{
 		if (hx711.is_ready()) {
 			float kg_reading = hx711.get_units();
-            force = kg_reading * GRAVITY;
+            force = kg_reading * GRAVITY  - getRawOffset();
 		} 
 	}
 

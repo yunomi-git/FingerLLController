@@ -18,7 +18,7 @@ class Run_SESCalibration : public ArduinoSketch
     // ..............................................
 
     PT15SeriesElasticSensor sesSensor;
-    HX711ForceSensor referenceSensor;
+    HX711TorqueSensor referenceSensor;
     Timer sensorTimer;
     float sensorTime = 0.0001;
 

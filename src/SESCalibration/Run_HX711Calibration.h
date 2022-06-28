@@ -16,17 +16,17 @@ class Run_HX711Calibration : public ArduinoSketch
     float sensorTime = 0.0001;
 
     Timer printTimer;
-    float printTime = 0.001;
+    float printTime = 0.01;
 
 public:
     Run_HX711Calibration() = default;
     
     void setup()
     {
-        Serial.begin(152000);
         HardwareParameters hp = HardwareParameters();
         referenceSensor = HX711ForceSensor(hp.HX_DOUT_PIN, hp.HX_SCK_PIN); // get these from hardware parameters
         referenceSensor.hardwareSetup();
+        referenceSensor.tare();
 
         sensorTimer.usePrecision();
         sensorTimer.set(sensorTime);
@@ -45,6 +45,7 @@ public:
         }
         if (printTimer.isRinging())
         {
+            printTimer.restart();
             Serial.println(referenceSensor.getForceN());
         }
 
