@@ -12,10 +12,11 @@ private:
     byte pd_sck; // sck aka spi serial clock
     float scale;
 
-    float KG_SCALE = 399000.f;
+    float KG_SCALE = 401000.f;
 	float GRAVITY = 9.81;
 
     float force;
+	float mass;
 
 public:
 	HX711ForceSensor() = default;
@@ -41,18 +42,19 @@ public:
 			avgReading += force / times;
 		}
 		setTareOffset(avgReading);
+
 	}
 
 	void read(float dt)
 	{
 		if (hx711.is_ready()) {
 			float kg_reading = hx711.get_units();
-            force = kg_reading * GRAVITY  - getRawOffset();
+            force = kg_reading * GRAVITY;
 		} 
 	}
 
 	float getForceN() {
-		return force;
+		return force - getRawOffset();
 	}
 };
 
