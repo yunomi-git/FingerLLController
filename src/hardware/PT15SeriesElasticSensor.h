@@ -8,16 +8,18 @@ class PT15SeriesElasticSensor : public TorqueSensor {
 public:
 	PT15SeriesElasticSensor() = default;
 
-	PT15SeriesElasticSensor(byte readPin, float springConstant, float tareOffset) 
+	PT15SeriesElasticSensor(byte readPin, float springConstant, float tareOffset, float deadbandSize) 
 	{
 		this->readPin = readPin;
 		this->springConstant = springConstant;
 		this->tareOffset = tareOffset;
+		this->deadbandSize = deadbandSize;
 	}
 
 	void hardwareSetup() {
 		potentiometer = Potentiometer(readPin);
 		potentiometer.hardwareSetup();
+		setTareOffset(tareOffset);
 	}
 
 	void tare(int times=10) {
@@ -35,17 +37,18 @@ public:
 		return torque;
 	}
 
-private:
+public:
 	float getRawRead() {
 		return potentiometer.getReadingNormalized();
 	}
 
+private:
 	float convertReadToTorqueNm(float read_value) {
 		return springConstant * read_value;
 	}
 
 	float applyDeadband(float read) {
-		if (fabs(read) < deadband_size) {
+		if (fabs(read) < deadbandSize) {
 			 return 0;
 		} else {
 			return read;
@@ -62,7 +65,7 @@ private:
 	byte readPin;
 	float springConstant = 3.2; // for 17mm, stronger spring
 	float tareOffset = 0.513;
-	float deadband_size = 0.02;
+	float deadbandSize = 0.02;
 
 	//const float lower_deadband = 0.507;
 	//const float upper_deadband = 0.56;

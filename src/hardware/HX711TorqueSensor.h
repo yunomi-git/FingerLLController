@@ -29,6 +29,7 @@ public:
 
 	void tare(int times=10) // how to tare?
     {
+		forceSensor.tare(times);
 		setTareOffset(0);  // toododo
 	}
 

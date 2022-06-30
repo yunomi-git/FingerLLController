@@ -42,7 +42,6 @@ public:
 			avgReading += force / times;
 		}
 		setTareOffset(avgReading);
-
 	}
 
 	void read(float dt)

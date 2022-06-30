@@ -1,6 +1,8 @@
 #ifndef __PARAMETERS__
 #define __PARAMETERS__
 
+#include <Arduino.h>
+
 struct HardwareParameters
 {
     HardwareParameters()
@@ -19,12 +21,15 @@ struct HardwareParameters
         sensorParameters.angle2.ALPHA = 0.8;
         
         sensorParameters.torque1.READ_PIN = 21;
-        sensorParameters.torque1.SCALE = 3.2;
-        sensorParameters.torque1.RAW_OFFSET = 0.513;
+        sensorParameters.torque1.SCALE = 2.7;
+        sensorParameters.torque1.RAW_OFFSET = 0.4941;
+        sensorParameters.torque1.DEADBAND = 0.02;
 
         sensorParameters.torque2.READ_PIN = 20;
-        sensorParameters.torque2.SCALE = 3.2;
-        sensorParameters.torque2.RAW_OFFSET = 0.513;
+        sensorParameters.torque2.SCALE = 2.7;
+        sensorParameters.torque2.RAW_OFFSET = 0.4916;
+        sensorParameters.torque1.DEADBAND = 0.02;
+
 
         
         // sensorParameters.angle1.READ_PIN = 19;
@@ -66,6 +71,7 @@ struct HardwareParameters
             byte READ_PIN;
             float SCALE;
             float RAW_OFFSET;
+            float DEADBAND;
         };
 
         AngleSensorParam angle1;

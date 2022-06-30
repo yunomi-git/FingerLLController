@@ -21,7 +21,7 @@ class Run_HX711Calibration : public ArduinoSketch
     float printTime = 0.001;
 
     Timer calibrationTimer;
-    float calibrateTime = 1;
+    float calibrateTime = 0.5;
 
 public:
     Run_HX711Calibration() = default;
