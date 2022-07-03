@@ -7,25 +7,26 @@ struct HardwareParameters
 {
     HardwareParameters()
     {        
-        motorDriver1.ENA_PIN = 10;
-        motorDriver1.DIR1_PIN = 8;
-        motorDriver1.DIR2_PIN = 9;
+        motorDriver1.ENA_PIN = 2;
+        motorDriver1.DIR1_PIN = 3; // in1
+        motorDriver1.DIR2_PIN = 4; // in2
 
-        motorDriver2.ENA_PIN = 10;
-        motorDriver2.DIR1_PIN = 8;
-        motorDriver2.DIR2_PIN = 9;
+        motorDriver2.DIR2_PIN = 5; // in3
+        motorDriver2.DIR1_PIN = 6; // in4
+        motorDriver2.ENA_PIN = 7;
 
         sensorParameters.angle1.READ_PIN = 23;
-        sensorParameters.angle2.READ_PIN = 22;
         sensorParameters.angle1.ALPHA = 0.8;
+
+        sensorParameters.angle2.READ_PIN = 22;
         sensorParameters.angle2.ALPHA = 0.8;
         
-        sensorParameters.torque1.READ_PIN = 21;
+        sensorParameters.torque1.READ_PIN = 20;
         sensorParameters.torque1.SCALE = 2.7;
         sensorParameters.torque1.RAW_OFFSET = 0.4941;
         sensorParameters.torque1.DEADBAND = 0.02;
 
-        sensorParameters.torque2.READ_PIN = 20;
+        sensorParameters.torque2.READ_PIN = 21;
         sensorParameters.torque2.SCALE = 2.7;
         sensorParameters.torque2.RAW_OFFSET = 0.4916;
         sensorParameters.torque1.DEADBAND = 0.02;
@@ -49,6 +50,10 @@ struct HardwareParameters
     float MOTOR_VOLTAGE = 12.0;
     byte POT_1_READ_PIN = 15;
     byte POT_2_READ_PIN = 14;
+
+    float MAX_ANGLE_1 = 90;
+    float MAX_ANGLE_2 = 90;
+    float MAX_TORQUE = 0.1;
 
     struct MotorDriverParam
     {

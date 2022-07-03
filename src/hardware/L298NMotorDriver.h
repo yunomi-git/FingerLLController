@@ -10,7 +10,9 @@ class L298NMotorDriver : public MotorDriver {
 public:
 	L298NMotorDriver() = default;
 
-    L298NMotorDriver(float supplyVoltage, byte nENA, byte nDIR1, byte nDIR2) : MotorDriver(supplyVoltage) {
+    L298NMotorDriver(float supplyVoltage, byte nENA, byte nDIR1, byte nDIR2) 
+        : MotorDriver(supplyVoltage) 
+    {
         this->ENA = ENA;
         this->DIR1 = DIR1;
         this->DIR2 = DIR2;
@@ -30,10 +32,24 @@ public:
         analogWrite(ENA, 0);
     }
 
+    void submitVoltage(float voltage)
+    {
+        voltage = fbound(voltage, -supplyVoltage, supplyVoltage) * getDirection();
+    }
+
+    void write() {
+        if (!directionIsConsistentWithVoltage(voltage)) {
+    		switchHardwareDirection();
+      	}
+        analogWrite(ENA, (int)(fabs(voltage)/getMaxVoltage() * ANALOG_WRITE_SCALE));
+    }
+
 private:
     int ENA;
     int DIR1;
     int DIR2;
+    Direction hardwareDirection = POSITIVE_DIRECTION;
+    float voltage;
 
     void switchToDirection1() {
         digitalWrite(DIR1, LOW);
@@ -45,8 +61,24 @@ private:
         digitalWrite(DIR2, LOW);
     }
 
-    void writeVoltageToHardware(float voltage) {
-        analogWrite(ENA, (int)(fabs(voltage)/getMaxVoltage() * ANALOG_WRITE_SCALE));
+    void switchHardwareDirection() {
+      	stop();
+    	if (getHardwareDirection() == POSITIVE_DIRECTION.value) {
+    		switchToDirection2();
+    		hardwareDirection = NEGATIVE_DIRECTION;
+    	} else {
+    		switchToDirection1();
+    		hardwareDirection = POSITIVE_DIRECTION;
+    	}
+    }
+
+    bool directionIsConsistentWithVoltage(float voltage) {
+        return voltage * getHardwareDirection() > 0;
+    }
+
+    float getHardwareDirection()
+    {
+        return hardwareDirection.value;
     }
 };
 

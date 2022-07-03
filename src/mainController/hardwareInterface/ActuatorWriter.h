@@ -30,12 +30,14 @@ class ActuatorWriter
     void setCommand(VoltageCommand voltageCommand)
     {
         this->voltageCommand = voltageCommand;
+        motorDriver1->submitVoltage(voltageCommand.voltage1);
+        motorDriver2->submitVoltage(voltageCommand.voltage2);
     }
 
     void write()
     {
-        motorDriver1->sendVoltageCommand(voltageCommand.voltage1);
-        motorDriver2->sendVoltageCommand(voltageCommand.voltage2);
+        motorDriver1->write();
+        motorDriver2->write();
     }
 };
 

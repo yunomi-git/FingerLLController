@@ -14,21 +14,21 @@ public:
 		this->springConstant = springConstant;
 		this->tareOffset = tareOffset;
 		this->deadbandSize = deadbandSize;
+		potentiometer = Potentiometer(readPin);
 	}
 
 	void hardwareSetup() {
-		potentiometer = Potentiometer(readPin);
 		potentiometer.hardwareSetup();
-		setTareOffset(tareOffset);
+		setZeroSI(tareOffset);
 	}
 
 	void tare(int times=10) {
-		setTareOffset(tareOffset);
+		setZeroSI(tareOffset);
 	}
 
 	void read(float dt)
 	{
-		float read = potentiometer.getReadingNormalized() - getRawOffset();
+		float read = potentiometer.getReadingNormalized() - getZeroSI();
 		read = applyDeadband(read);
 		torque = convertReadToTorqueNm(read);
 	}

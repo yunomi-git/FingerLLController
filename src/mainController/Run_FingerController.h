@@ -7,6 +7,7 @@
 #include "externalInterface/JointSpaceCommandInterface.h"
 #include "externalInterface/ArduinoCommandInterface.h"
 #include "externalInterface/JavaCommandInterface.h"
+#include "externalInterface/ControlMode.h"
 
 #include "../ArduinoSketch.h"
 #include "hardwareInterface/HardwareParameters.h"
@@ -16,6 +17,9 @@ class Run_FingerController : public ArduinoSketch
     FingerLowLevelController fingerLowLevelController;
     JointSpaceCommandInterface *jointSpaceCommandInterface;
     bool useArduinoInput = true;
+    Timer sendTimer;
+    float sendTime = 0.01;
+
 
 public:
     Run_FingerController() = default;
@@ -24,15 +28,17 @@ public:
         HardwareParameters hp = HardwareParameters();
         ControllerParameters cp = ControllerParameters();
         fingerLowLevelController = FingerLowLevelController(hp, cp);
+        fingerLowLevelController.hardwareSetup();
 
         if (useArduinoInput)
         {
-            jointSpaceCommandInterface = new ArduinoInputCommand(hp.POT_1_READ_PIN, hp.POT_2_READ_PIN);
+            jointSpaceCommandInterface = new ArduinoInputCommand(ControlMode::VOLTAGE, hp.POT_1_READ_PIN, hp.POT_2_READ_PIN, hp);
         }
         else
         {
             jointSpaceCommandInterface = new JavaCommandInterface();
         }
+        sendTimer.set(sendTime);
     }
 
     void loop()
@@ -41,9 +47,13 @@ public:
 
         fingerLowLevelController.submitCommand(jointSpaceCommand);
         fingerLowLevelController.doControl();
-        SensorData sensorData = fingerLowLevelController.getMeasurements();
 
-        jointSpaceCommandInterface->send(sensorData);
+        SensorData sensorData = fingerLowLevelController.getMeasurements();
+        if (sendTimer.isRinging())
+        {
+            sendTimer.restart();
+            jointSpaceCommandInterface->send(sensorData);
+        }
     }
 };
 

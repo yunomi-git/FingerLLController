@@ -23,6 +23,7 @@ public:
     {
         // String string = getInputString();
         // parseInputString(string);
+        return JointSpaceCommand();
     }
 
     void send(SensorData sensorData)

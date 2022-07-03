@@ -32,6 +32,11 @@ class AngleSensor : public Sensor
         filteredVelocity.update(velocity);
     }
 
+    void setZero(float zero)
+    {
+        
+    }
+
     public:
     virtual void hardwareSetup() = 0;
 
@@ -39,6 +44,7 @@ class AngleSensor : public Sensor
     virtual float getHardwareAngleDeg() = 0;
     virtual float getHardwareVelocityDegSec()=0;
     virtual void updateHardwareReading(float dt) = 0;
+
 
     public:
     float getAngleDeg()

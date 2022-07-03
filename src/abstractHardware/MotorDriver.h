@@ -2,6 +2,7 @@
 #define __FIN_MOTORDRIVERSW__
 
 #include "../util/MathUtil.h"
+#include "../util/Direction.h"
 
 class MotorDriver {
 public:
@@ -15,46 +16,32 @@ public:
 
     virtual void stop() = 0;
 
-    void sendVoltageCommand(float voltage) {
-    	voltage = fbound(voltage, -supplyVoltage, supplyVoltage);
+	virtual void submitVoltage(float voltage) = 0;
 
-      	if (!directionIsConsistentWithVoltage(voltage)) {
-    		switchDirection();
-      	}
-
-        writeVoltageToHardware(voltage);
-    }
+    virtual void write() = 0;
 
     float getMaxVoltage() {
     	return supplyVoltage;
     }
 
-protected:
-	virtual void writeVoltageToHardware(float voltage)  = 0;
-	virtual void switchToDirection1() = 0;
-	virtual void switchToDirection2() = 0;
-
-	void switchDirection() {
-      	stop();
-    	if (direction == direction1) {
-    		switchToDirection2();
-    		direction = direction2;
-    	} else {
-    		switchToDirection1();
-    		direction = direction1;
-    	}
+    void setDirection(Direction direction)
+    {
+        this->direction = direction;
     }
+
+    float getDirection()
+    {
+        return direction.value;
+    }
+protected:
 
 	float supplyVoltage;
 
 private:
-	static const int direction1 = 1;
-	static const int direction2 = -1;
-
-	int direction = direction1;
+	Direction direction = POSITIVE_DIRECTION;
 
     bool directionIsConsistentWithVoltage(float voltage) {
-        return voltage * direction > 0;
+        return voltage * getDirection() > 0;
     }
 };
 

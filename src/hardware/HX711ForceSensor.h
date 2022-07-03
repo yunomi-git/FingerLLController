@@ -18,6 +18,8 @@ private:
     float force;
 	float mass;
 
+	float direction = 1.0;
+
 public:
 	HX711ForceSensor() = default;
 
@@ -41,7 +43,8 @@ public:
 			read(delayTime);
 			avgReading += force / times;
 		}
-		setTareOffset(avgReading);
+		setZeroSI(avgReading);
+		setTared();
 	}
 
 	void read(float dt)
@@ -53,7 +56,7 @@ public:
 	}
 
 	float getForceN() {
-		return force - getRawOffset();
+		return force - getZeroSI();
 	}
 };
 
