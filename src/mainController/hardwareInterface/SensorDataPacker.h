@@ -40,7 +40,7 @@ class SensorDataPacker
         SensorData sensorData = SensorData();
         
         sensorData.torque1 = ses1->getTorqueNm();
-        sensorData.torque2 = ses1->getTorqueNm();
+        sensorData.torque2 = ses2->getTorqueNm();
         sensorData.velocity1 = ang1->getVelocityDegSec();
         sensorData.velocity2 = ang2->getVelocityDegSec();
         sensorData.angle1 = ang1->getAngleDeg();

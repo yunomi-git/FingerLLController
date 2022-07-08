@@ -60,9 +60,9 @@ class ArduinoInputCommand : public JointSpaceCommandInterface
 
     void send(SensorData sensorData)
     {
-        Serial.print(jointSpaceCommand.input1); Serial.print(",");
-        Serial.print(jointSpaceCommand.input2); 
-        Serial.println();
+        // Serial.print(jointSpaceCommand.input1); Serial.print(",");
+        // Serial.print(jointSpaceCommand.input2); 
+        // Serial.println();
     }
 };
 

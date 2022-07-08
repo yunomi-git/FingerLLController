@@ -18,9 +18,9 @@ class HardwareManager
     PT15SeriesElasticSensor torque1Sensor;
     PT15SeriesElasticSensor torque2Sensor;
 
-    ActuatorWriter actuatorWriter;
-    L298NMotorDriver motorDriver1;
-    L298NMotorDriver motorDriver2;
+    // ActuatorWriter actuatorWriter;
+    // L298NMotorDriver motorDriver1;
+    // L298NMotorDriver motorDriver2;
 
     public:
     HardwareManager() = default;
@@ -34,17 +34,17 @@ class HardwareManager
         angle1Sensor = PT15AngleSensor(sp.angle1.READ_PIN, sp.angle1.ALPHA);
         angle2Sensor = PT15AngleSensor(sp.angle2.READ_PIN, sp.angle2.ALPHA);
         sensorDataPacker = SensorDataPacker(&angle1Sensor, &angle2Sensor, &torque1Sensor, &torque2Sensor);
-
-        motorDriver1 = L298NMotorDriver(hp.motorDriver1.SUPPLY_VOLTAGE, hp.motorDriver1.ENA_PIN, hp.motorDriver1.DIR1_PIN, hp.motorDriver1.DIR2_PIN);  
-        motorDriver2 = L298NMotorDriver(hp.motorDriver2.SUPPLY_VOLTAGE, hp.motorDriver2.ENA_PIN, hp.motorDriver2.DIR1_PIN, hp.motorDriver2.DIR2_PIN);    
-        actuatorWriter = ActuatorWriter(&motorDriver1, &motorDriver2);
+        // sensorDataPacker = SensorDataPacker(&angle1Sensor);
+        // motorDriver1 = L298NMotorDriver(hp.motorDriver1.SUPPLY_VOLTAGE, hp.motorDriver1.ENA_PIN, hp.motorDriver1.DIR1_PIN, hp.motorDriver1.DIR2_PIN);  
+        // motorDriver2 = L298NMotorDriver(hp.motorDriver2.SUPPLY_VOLTAGE, hp.motorDriver2.ENA_PIN, hp.motorDriver2.DIR1_PIN, hp.motorDriver2.DIR2_PIN);    
+        // actuatorWriter = ActuatorWriter(&motorDriver1, &motorDriver2);
         Serial.println("HardwareManager: Printing here prevents serial bug"); // unknown bug
     }
 
     void hardwareSetup()
     {
         sensorDataPacker.hardwareSetup();
-        actuatorWriter.hardwareSetup();
+        // actuatorWriter.hardwareSetup();
     }
 
     SensorDataPacker * createSensorDataPacker()
@@ -52,10 +52,10 @@ class HardwareManager
         return &sensorDataPacker;
     }
 
-    ActuatorWriter * createActuatorWriter()
-    {
-        return &actuatorWriter;
-    }
+    // ActuatorWriter * createActuatorWriter()
+    // {
+    //     return &actuatorWriter;
+    // }
 
 };
 

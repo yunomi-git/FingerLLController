@@ -24,10 +24,7 @@ public:
     {
         hardwareManager = HardwareManager(hp);
         sensorDataPacker = hardwareManager.createSensorDataPacker();
-        // actuatorWriter = hardwareManager.createActuatorWriter();
         maxVoltage = hp.MOTOR_VOLTAGE;
-
-        // controlComputer = ControlComputer(hp, cp);
     }
 
     void hardwareSetup()
@@ -46,6 +43,9 @@ public:
     {
         if (timer.isRinging())
         {
+        // Serial.print(jointSpaceCommand.input1); Serial.print(",");
+        // Serial.print(jointSpaceCommand.input2); 
+        // Serial.println();
             float dt = timer.dt();
             timer.restart();
 
@@ -76,10 +76,6 @@ public:
     
     SensorDataPacker *sensorDataPacker;
     SensorData sensorData;
-
-    // ControlComputer controlComputer;
-
-    // ActuatorWriter *actuatorWriter;
 
     Timer timer;
 
