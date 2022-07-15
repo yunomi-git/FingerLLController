@@ -17,7 +17,7 @@ public:
 
     float getReadingNormalized() {
         int read = analogRead(readPin);
-        float normalized_read = read / ANALOG_READ_SCALE;
+        float normalized_read = (read + 0.5) / ANALOG_READ_SCALE;
         return normalized_read;
     }
 

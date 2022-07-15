@@ -20,6 +20,7 @@ class PT15AngleSensor : public AngleSensor
     float velocity = 0.0;
     float lastAngle = 0.0;
     float alpha = 1.0;
+    float zero = 0.0;
 
     byte readPin;
 
@@ -39,11 +40,16 @@ class PT15AngleSensor : public AngleSensor
         setAlphaFilterValue(alpha);
     }
 
+    void setZero(float zero)
+    {
+        this->zero = zero;
+    }
+
     private: 
     void updateHardwareReading(float dt)
     {
         float rawRead = potentiometer.getReadingNormalized();
-        angle = fmap(rawRead, 0.0, 1.0, MIN_ANGLE_DEG, MAX_ANGLE_DEG);
+        angle = fmap(rawRead, 0.0, 1.0, MIN_ANGLE_DEG, MAX_ANGLE_DEG) - zero;
         velocity = (angle - lastAngle) / dt; // TODO this reading is buggy
         lastAngle = angle;
     }

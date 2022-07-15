@@ -17,19 +17,21 @@ struct HardwareParameters
 
         sensorParameters.angle1.READ_PIN = 23;
         sensorParameters.angle1.ALPHA = 0.8;
+        sensorParameters.angle1.ZERO = 3.5626;
 
         sensorParameters.angle2.READ_PIN = 22;
         sensorParameters.angle2.ALPHA = 0.8;
+        sensorParameters.angle2.ZERO = -0.9225;
         
         sensorParameters.torque1.READ_PIN = 20;
         sensorParameters.torque1.SCALE = 2.7;
-        sensorParameters.torque1.RAW_OFFSET = 0.4941;
-        sensorParameters.torque1.DEADBAND = 0.02;
+        sensorParameters.torque1.RAW_OFFSET = 0.4995;
+        sensorParameters.torque1.DEADBAND = 0.017;
 
         sensorParameters.torque2.READ_PIN = 21;
         sensorParameters.torque2.SCALE = 2.7;
-        sensorParameters.torque2.RAW_OFFSET = 0.4916;
-        sensorParameters.torque1.DEADBAND = 0.02;
+        sensorParameters.torque2.RAW_OFFSET = 0.5265;
+        sensorParameters.torque1.DEADBAND = 0.018;
 
 
         
@@ -53,7 +55,16 @@ struct HardwareParameters
 
     float MAX_ANGLE_1 = 90;
     float MAX_ANGLE_2 = 90;
-    float MAX_TORQUE = 0.1;
+    
+    float MAX_READ_TORQUE = 0.4; // Nm
+    float MIN_READ_TORQUE = -MAX_READ_TORQUE;
+
+    float MAX_READ_VELOCITY = 0.5; // deg/sec
+    float MIN_READ_VELOCITY = -MAX_READ_VELOCITY;
+
+    float MIN_READ_ANGLE = 0.0;
+    float MAX_READ_ANGLE = 90.0; // deg
+
 
     struct MotorDriverParam
     {
@@ -68,7 +79,8 @@ struct HardwareParameters
         struct AngleSensorParam
         {
             byte READ_PIN;
-            byte ALPHA;
+            float ALPHA;
+            float ZERO;
         };
 
         struct TorqueSensorParam
