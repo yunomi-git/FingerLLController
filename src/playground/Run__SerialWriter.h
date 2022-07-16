@@ -3,8 +3,8 @@
 
 #include "ArduinoSketch.h"
 #include <Arduino.h>
-#include "../mainController/externalInterface/JavaCommandInterface.h"
-#include "../mainController/hardwareInterface/SensorData.h"
+#include "../externalInterface/JavaCommandInterface.h"
+#include "../packets/SensorData.h"
 #include "../mainController/hardwareInterface/HardwareParameters.h"
 #include "../Constants.h"
 #include "../util/Timer.h"

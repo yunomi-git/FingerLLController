@@ -4,10 +4,10 @@
 
 #include "FingerLowLevelController.h"
 
-#include "externalInterface/JointSpaceCommandInterface.h"
-#include "externalInterface/ArduinoCommandInterface.h"
-#include "externalInterface/JavaCommandInterface.h"
-#include "externalInterface/ControlMode.h"
+#include "../externalInterface/JointSpaceCommandInterface.h"
+#include "../externalInterface/ArduinoCommandInterface.h"
+#include "../externalInterface/JavaCommandInterface.h"
+#include "../packets/ControlMode.h"
 
 #include "../ArduinoSketch.h"
 #include "hardwareInterface/HardwareParameters.h"

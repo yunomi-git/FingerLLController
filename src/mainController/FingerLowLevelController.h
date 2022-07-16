@@ -1,8 +1,11 @@
 #ifndef __FLLC__
 #define __FLLC__
 
+#include "../packets/ControlMode.h"
+#include "../packets/JointSpaceCommand.h"
+#include "../packets/SensorData.h"
+
 #include "hardwareInterface/SensorDataPacker.h"
-#include "hardwareInterface/SensorData.h"
 #include "hardwareInterface/VoltageCommand.h"
 #include "hardwareInterface/ActuatorWriter.h"
 
@@ -12,8 +15,7 @@
 #include "ControllerParameters.h"
 #include "ControlComputer.h"
 
-#include "externalInterface/ControlMode.h"
-#include "externalInterface/JointSpaceCommand.h"
+
 
 class FingerLowLevelController
 {

@@ -2,9 +2,9 @@
 #define __AICR__
 
 #include "Arduino.h"
-#include "JointSpaceCommand.h"
-#include "ControlMode.h"
-#include "../../hardware/Potentiometer.h"
+#include "../packets/JointSpaceCommand.h"
+#include "../packets/ControlMode.h"
+#include "../hardware/Potentiometer.h"
 #include "JointSpaceCommandInterface.h"
 
 class ArduinoInputCommand : public JointSpaceCommandInterface
@@ -28,7 +28,7 @@ class ArduinoInputCommand : public JointSpaceCommandInterface
         this->maxVoltage = hp.MOTOR_VOLTAGE;
         this->maxAngle1 = hp.MAX_ANGLE_1;
         this->maxAngle2 = hp.MAX_ANGLE_2;
-        this->maxTorque = hp.MAX_TORQUE;
+        this->maxTorque = hp.MAX_READ_TORQUE;
     }
 
     void hardwareSetup()
@@ -60,9 +60,9 @@ class ArduinoInputCommand : public JointSpaceCommandInterface
 
     void send(SensorData sensorData)
     {
-        // Serial.print(jointSpaceCommand.input1); Serial.print(",");
-        // Serial.print(jointSpaceCommand.input2); 
-        // Serial.println();
+        Serial.print(jointSpaceCommand.input1); Serial.print(",");
+        Serial.print(jointSpaceCommand.input2); 
+        Serial.println();
     }
 };
 

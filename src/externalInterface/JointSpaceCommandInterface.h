@@ -1,8 +1,8 @@
 #ifndef __ICR__
 #define __ICR__
 
-#include "JointSpaceCommand.h"
-#include "../hardwareInterface/SensorData.h"
+#include "../packets/JointSpaceCommand.h"
+#include "../packets/SensorData.h"
 
 class JointSpaceCommandInterface
 {

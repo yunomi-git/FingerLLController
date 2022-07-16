@@ -3,10 +3,10 @@
 
 #include "./hardwareInterface/HardwareParameters.h"
 #include "ControllerParameters.h"
-#include "./externalInterface/JointSpaceCommand.h"
+#include "../packets/JointSpaceCommand.h"
 #include "./hardwareInterface/VoltageCommand.h"
 #include "PIDController.h"
-#include "./hardwareInterface/SensorData.h"
+#include "./packets/SensorData.h"
 
 class ControlComputer
 {

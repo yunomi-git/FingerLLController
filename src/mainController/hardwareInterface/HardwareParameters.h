@@ -56,6 +56,7 @@ struct HardwareParameters
     float MAX_ANGLE_1 = 90;
     float MAX_ANGLE_2 = 90;
     
+    // TODO: Should these be part of Constants.h? .....
     float MAX_READ_TORQUE = 0.4; // Nm
     float MIN_READ_TORQUE = -MAX_READ_TORQUE;
 
@@ -64,7 +65,7 @@ struct HardwareParameters
 
     float MIN_READ_ANGLE = 0.0;
     float MAX_READ_ANGLE = 90.0; // deg
-
+    // ............
 
     struct MotorDriverParam
     {

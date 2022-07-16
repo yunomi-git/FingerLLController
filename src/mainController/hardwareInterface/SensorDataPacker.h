@@ -4,7 +4,7 @@
 #include "../../abstractHardware/AngleSensor.h"
 #include "../../abstractHardware/TorqueSensor.h"
 
-#include "SensorData.h"
+#include "../../packets/SensorData.h"
 
 class SensorDataPacker
 {
