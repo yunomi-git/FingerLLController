@@ -3,12 +3,26 @@
 
 // #include "Timer.h"
 #include "../util/MathUtil.h"
+#include "../util/AlphaFilter.h"
+#include "../util/Derivative.h"
 
 struct PIDGains {
 	float kp;
 	float ki;
 	float kd;
 	float maxIntegrator;
+	float maxControl;
+	float minControl;
+	float alphaDerivative;
+	float derivativeTime;
+
+	PIDGains()
+	{
+		alphaDerivative = 1.0;
+		maxIntegrator = __FLT_MAX__;
+		maxControl = __FLT_MAX__;
+		minControl = __FLT_MIN__;
+	}
 };
 
 class PIDController {
@@ -20,13 +34,8 @@ public:
 		this->gains = gains;
 		prevError = 0.0;
 		errorIntegrator = 0.0;
-		// dt_timer.reset();
-		// dt_timer.usePrecision();
+		errorDerivative = Derivative(gains.derivativeTime);
 	}
-
-	// void bindErrorReference(float *nerror_ref) {
-	// 	error_ref = nerror_ref;
-	// }
 
 	void setPIDGains(PIDGains gains) {
 		this->gains = gains;
@@ -37,29 +46,32 @@ public:
 		errorIntegrator = 0.0;
 	}
 
-	float stepAndGet(float error, float dt) {
-		// float error = *error_ref;
-		// float dt = dt_timer.dtSec();
-		// dt_timer.reset();
-		float derror = (error - prevError) / dt;
-		prevError = error;
+	float stepAndGet(float error, float dt) 
+	{
+		errorDerivative.update(error, dt);
+		float derror = errorDerivative.getDerivative();
 
-		errorIntegrator += error * dt;
-		errorIntegrator = fbound(errorIntegrator, -gains.maxIntegrator, gains.maxIntegrator);
+		float controlNoIntegrator = gains.kp * error +
+									gains.kd * derror;
 
-		float control = gains.kp * error +
-						gains.ki * errorIntegrator +
-						gains.kd * derror;
+		errorIntegrator += gains.ki * error * dt;
+		float maxErrorIntegrator = fmin(gains.maxIntegrator, 					 // default integrator maximum
+										gains.maxControl - controlNoIntegrator); // integrator should not exceed control maximum
+		float minErrorIntegrator = fmax(-gains.maxIntegrator, 					 // default integrator minimum
+										gains.minControl - controlNoIntegrator); // integrator should not exceed control minimum
+		errorIntegrator = fbound(errorIntegrator, minErrorIntegrator, maxErrorIntegrator);
+
+		float control = errorIntegrator + controlNoIntegrator;
+
 		return control;
 	}
 
 private:
-	// Timer dt_timer;
 	PIDGains gains;
 
-	// float *error_ref;
 	float prevError;
 	float errorIntegrator;
+	Derivative errorDerivative;
 };
 
 #endif

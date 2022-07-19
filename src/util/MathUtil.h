@@ -16,6 +16,20 @@ float fbound(float x, float min, float max) {
 	return x;
 };
 
+float fmin(float x, float y)
+{
+	if (x > y) return y;
+	if (x < y) return x;
+	return x;
+}
+
+float fmax(float x, float y)
+{
+	if (x > y) return x;
+	if (x < y) return y;
+	return x;
+}
+
 float fixedAbs(float x) {
 	if (x < 0) {
 		return -x;
