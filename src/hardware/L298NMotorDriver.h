@@ -10,7 +10,7 @@ class L298NMotorDriver : public MotorDriver {
 public:
 	L298NMotorDriver() = default;
 
-    L298NMotorDriver(float supplyVoltage, byte nENA, byte nDIR1, byte nDIR2) 
+    L298NMotorDriver(float supplyVoltage, byte ENA, byte DIR1, byte DIR2) 
         : MotorDriver(supplyVoltage) 
     {
         this->ENA = ENA;
@@ -34,20 +34,21 @@ public:
 
     void submitVoltage(float voltage)
     {
-        voltage = fbound(voltage, -supplyVoltage, supplyVoltage) * getDirection();
+        this->voltage = fbound(voltage, -supplyVoltage, supplyVoltage) * getDirection();
     }
 
     void write() {
         if (!directionIsConsistentWithVoltage(voltage)) {
     		switchHardwareDirection();
       	}
+        // Serial.println((int)(fabs(voltage)/getMaxVoltage() * ANALOG_WRITE_SCALE));
         analogWrite(ENA, (int)(fabs(voltage)/getMaxVoltage() * ANALOG_WRITE_SCALE));
     }
 
 private:
-    int ENA;
-    int DIR1;
-    int DIR2;
+    byte ENA;
+    byte DIR1;
+    byte DIR2;
     Direction hardwareDirection = POSITIVE_DIRECTION;
     float voltage;
 

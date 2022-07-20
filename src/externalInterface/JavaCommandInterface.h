@@ -1,9 +1,9 @@
 #ifndef __JICR__
 #define __JICR__
 
-#include "JointSpaceCommand.h"
-#include "ControlMode.h"
-#include "JointSpaceCommandInterface.h"
+#include "../packets/JointSpaceCommand.h"
+#include "../packets/ControlMode.h"
+#include "./JointSpaceCommandInterface.h"
 #include "Arduino.h"
 
 

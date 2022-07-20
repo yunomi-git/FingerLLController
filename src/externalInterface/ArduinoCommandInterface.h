@@ -20,6 +20,8 @@ class ArduinoInputCommand : public JointSpaceCommandInterface
 
     JointSpaceCommand jointSpaceCommand;
  public:   
+    ArduinoInputCommand() = default;
+    
     ArduinoInputCommand(ControlMode controlMode, byte POT1_READ_PIN, byte POT2_READ_PIN, HardwareParameters hp)
     {
         pot1 = Potentiometer(POT1_READ_PIN);
@@ -51,6 +53,8 @@ class ArduinoInputCommand : public JointSpaceCommandInterface
                 jointSpaceCommand.input1 = read1 * maxAngle1;
                 jointSpaceCommand.input2 = read2 * maxAngle2;
             case VOLTAGE:
+                // jointSpaceCommand.input1 = (read1) ;
+                // jointSpaceCommand.input2 = (read2) ;
                 jointSpaceCommand.input1 = (read1 - 0.5) * 2.0 * maxVoltage;
                 jointSpaceCommand.input2 = (read2 - 0.5) * 2.0 * maxVoltage;
         }
