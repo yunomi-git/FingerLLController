@@ -38,11 +38,12 @@ class HardwareManager
         // motorDriver1 = L298NMotorDriver(hp.motorDriver1.SUPPLY_VOLTAGE, hp.motorDriver1.ENA_PIN, hp.motorDriver1.DIR1_PIN, hp.motorDriver1.DIR2_PIN);  
         // motorDriver2 = L298NMotorDriver(hp.motorDriver2.SUPPLY_VOLTAGE, hp.motorDriver2.ENA_PIN, hp.motorDriver2.DIR1_PIN, hp.motorDriver2.DIR2_PIN);    
         // actuatorWriter = ActuatorWriter(&motorDriver1, &motorDriver2);
-        Serial.println("HardwareManager: Printing here prevents serial bug"); // unknown bug
+        // Serial.println("HardwareManager: Printing here prevents serial bug"); // unknown bug
     }
 
     void hardwareSetup()
     {
+                Serial.println("manager setup");
         sensorDataPacker.hardwareSetup();
         // actuatorWriter.hardwareSetup();
     }

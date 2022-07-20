@@ -7,6 +7,8 @@
 
 #include "../util/Timer.h"
 #include "../util/MathUtil.h"
+#include "../util/Derivative.h"
+
 
 class PT15AngleSensor : public AngleSensor 
 {
@@ -18,7 +20,6 @@ class PT15AngleSensor : public AngleSensor
 
     float angle = 0.0;
     float velocity = 0.0;
-    float lastAngle = 0.0;
     float alpha = 1.0;
     float zero = 0.0;
 
@@ -36,8 +37,14 @@ class PT15AngleSensor : public AngleSensor
 
     void hardwareSetup()
     {
+        Serial.println("angle setup");
         potentiometer.hardwareSetup();
         setAlphaFilterValue(alpha);
+    }
+
+    void printName()
+    {
+        Serial.println("PT15AngleSensor");
     }
 
     void setZero(float zero)
@@ -50,18 +57,11 @@ class PT15AngleSensor : public AngleSensor
     {
         float rawRead = potentiometer.getReadingNormalized();
         angle = fmap(rawRead, 0.0, 1.0, MIN_ANGLE_DEG, MAX_ANGLE_DEG) - zero;
-        velocity = (angle - lastAngle) / dt; // TODO this reading is buggy
-        lastAngle = angle;
     }
 
     float getHardwareAngleDeg()
     {
         return angle;
-    }
-
-    float getHardwareVelocityDegSec()
-    {
-        return velocity;
     }
 
     float convertRawReadToDegrees(float rawRead)

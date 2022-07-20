@@ -3,48 +3,54 @@
 
 #include "../util/AlphaFilter.h"
 #include "Sensor.h"
+#include "../util/Derivative.h"
 
 class AngleSensor : public Sensor
 {
     private:
     float angle;
     float velocity;
-    AlphaFilter<float> filteredVelocity;
+    Derivative angleDerivative;
 
     public:
     AngleSensor() 
     {
+        
+    }
 
+    AngleSensor(float velocityTick, float alpha=1.0)
+    {
+        angleDerivative = Derivative(velocityTick, alpha);
     }
 
     void setAlphaFilterValue(float alpha)
     {
-        filteredVelocity.setAlpha(alpha);
+        
+        angleDerivative.setAlpha(alpha);
     }
 
     void read(float dt)
     {
-        updateHardwareReading(dt);
+        // updateHardwareReading(dt);
 
-        angle = getHardwareAngleDeg();
-        velocity = getHardwareVelocityDegSec();
+        // angle = getHardwareAngleDeg();
+        // angleDerivative.update(angle, dt);
 
-        filteredVelocity.update(velocity);
+        // velocity = angleDerivative.getDerivative();
     }
 
-    void setZero(float zero)
-    {
-        
-    }
+    virtual void setZero(float zero); //TODO should this be virtual?
 
     public:
     virtual void hardwareSetup() = 0;
+    virtual void printName()
+    {
+        Serial.println("Abstract Angle Sensor");
+    }
 
     protected: 
     virtual float getHardwareAngleDeg() = 0;
-    virtual float getHardwareVelocityDegSec()=0;
     virtual void updateHardwareReading(float dt) = 0;
-
 
     public:
     float getAngleDeg()
@@ -54,7 +60,7 @@ class AngleSensor : public Sensor
 
     float getVelocityDegSec()
     {
-        return filteredVelocity.getFilteredData();
+        return velocity;
     }
 };
 

@@ -3,6 +3,7 @@
 
 #include "../abstractHardware/TorqueSensor.h"
 #include "Potentiometer.h"
+#include "Arduino.h"
 
 class PT15SeriesElasticSensor : public TorqueSensor {
 public:

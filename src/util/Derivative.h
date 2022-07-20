@@ -15,10 +15,11 @@ class Derivative
     public:
     Derivative() = default;
     
-    Derivative(float maxTime)
+    Derivative(float maxTime, float alpha)
     {
         timer.usePrecision();
         timer.set(maxTime);
+        derivativeFilter = AlphaFilter<float>(alpha);
     }
 
     void update(float measurement, float globalDt)
@@ -43,6 +44,11 @@ class Derivative
     float getDerivative()
     {
         return derivativeFilter.getFilteredData();
+    }
+
+    void setAlpha(float alpha)
+    {
+        derivativeFilter.setAlpha(alpha);
     }
 };
 
