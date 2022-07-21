@@ -11,6 +11,7 @@ class AngleSensor : public Sensor
     float angle;
     float velocity;
     Derivative angleDerivative;
+    AlphaFilter<float> angleFilter;
 
     public:
     AngleSensor() 
@@ -18,9 +19,10 @@ class AngleSensor : public Sensor
         
     }
 
-    AngleSensor(float velocityTick, float alpha=1.0)
+    AngleSensor(float velocityTick, float angleAlpha=1.0, float velocityAlpha=1.0)
     {
-        angleDerivative = Derivative(velocityTick, alpha);
+        angleDerivative = Derivative(velocityTick, velocityAlpha);
+        angleFilter = AlphaFilter<float>(angleAlpha);
     }
 
     void setAlphaFilterValue(float alpha)
@@ -33,7 +35,8 @@ class AngleSensor : public Sensor
     {
         updateHardwareReading(dt);
 
-        angle = getHardwareAngleDeg();
+        angleFilter.update(getHardwareAngleDeg());
+        angle = angleFilter.getFilteredData();
         angleDerivative.update(angle, dt);
 
         velocity = angleDerivative.getDerivative();

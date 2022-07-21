@@ -43,23 +43,11 @@ public:
 
     void setup()
     {
-        // HardwareParameters::SensorParameters sp = hp.sensorParameters;
-        // angle1Sensor = PT15AngleSensor(sp.angle1.READ_PIN, sp.angle1.ALPHA);
-        // angle2Sensor = PT15AngleSensor(sp.angle2.READ_PIN, sp.angle2.ALPHA);
-        // angle1Sensor.setZero(sp.angle1.ZERO);
-        // angle2Sensor.setZero(sp.angle2.ZERO);
-        // angle1Sensor.hardwareSetup();
-        // angle2Sensor.hardwareSetup();
-
         Serial.begin(115200);
-                // Serial.println("aaa done");
 
         hp = HardwareParameters();
-        // hardwareManager = HardwareManager(hp);
-        // hardwareManager.hardwareSetup();
         Serial.println("setup done");
 
-        // sensorDataPacker = hardwareManager.createSensorDataPacker();
         sensorDataPacker = SensorDataPackerV5(hp);
         sensorDataPacker.hardwareSetup();
 
@@ -89,11 +77,11 @@ public:
 
     void printSensorsDirectly(SensorData sensorData)
     {
-        Serial.print(sensorData.angle1, 5); Serial.print(", ");
-        Serial.print(sensorData.velocity1, 5); Serial.print(", ");
-        Serial.print(sensorData.torque1, 5); Serial.print(", ");
-        Serial.print(sensorData.angle2, 5); Serial.print(", ");
-        Serial.print(sensorData.velocity2, 5); Serial.print(", ");
+        Serial.print(sensorData.angle1, 5); Serial.print(",");
+        Serial.print(sensorData.velocity1, 5); Serial.print(",");
+        Serial.print(sensorData.torque1, 5); Serial.print(",");
+        Serial.print(sensorData.angle2, 5); Serial.print(",");
+        Serial.print(sensorData.velocity2, 5); Serial.print(",");
         Serial.print(sensorData.torque2, 5);
         Serial.println();
     }

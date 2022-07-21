@@ -27,18 +27,18 @@ class PT15AngleSensor : public AngleSensor
     public:
     PT15AngleSensor() = default;
     
-    PT15AngleSensor(byte readPin, float velocityTick, float alpha=1.0) : AngleSensor(velocityTick, alpha)
+    PT15AngleSensor(byte readPin, float velocityTick, float angleAlpha=1.0, float velocityAlpha=1.0) : AngleSensor(velocityTick, angleAlpha, velocityAlpha)
     {
         this->readPin = readPin;
-        this->alpha = alpha;
+        // this->alpha = alpha;
         potentiometer = Potentiometer(readPin);
     }
 
     void hardwareSetup()
     {
-        Serial.println("angle setup");
+        // Serial.println("angle setup");
         potentiometer.hardwareSetup();
-        setAlphaFilterValue(alpha);
+        // setAlphaFilterValue(alpha);
     }
 
     void printName()

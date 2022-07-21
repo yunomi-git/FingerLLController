@@ -33,12 +33,15 @@ class Derivative
             float dt = timer.dt();
             timer.restart();
             rawDerivative = (measurement - lastMeasurement) / dt;
-        }
-        else if (measurement != lastMeasurement)
-        {
-            rawDerivative = (measurement - lastMeasurement) / globalDt;
+            lastMeasurement = measurement;
+            
         }
         derivativeFilter.update(rawDerivative);
+        // else if (measurement != lastMeasurement)
+        // {
+        //     rawDerivative = (measurement - lastMeasurement) / globalDt;
+        // }
+
     }
 
     float getDerivative()
