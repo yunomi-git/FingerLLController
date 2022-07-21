@@ -14,10 +14,11 @@ class SensorDataPacker
     SensorDataPacker(AngleSensor *ang1, AngleSensor *ang2, TorqueSensor *ses1, TorqueSensor *ses2)
     {
         this->ang1 = ang1;
-        ang1->printName(); // no print = working
-        // this->ang2 = ang2;
-        // this->ses1 = ses1;
-        // this->ses2 = ses2;
+        this->ang2 = ang2;
+        this->ses1 = ses1;
+        this->ses2 = ses2;
+        ang1->printName();
+
     }
 
     void hardwareSetup()
@@ -33,16 +34,16 @@ class SensorDataPacker
         }
         ang1->printName();
         ang1->hardwareSetup();
-        // ang2->hardwareSetup();
-        // ses1->hardwareSetup();
-        // ses2->hardwareSetup();
+        ang2->hardwareSetup();
+        ses1->hardwareSetup();
+        ses2->hardwareSetup();
     }
 
     void read(float dt)
     {
         // ses1->read(dt);
         // ses2->read(dt);
-        // ang1->read(dt);
+        ang1->read(dt);
         // ang2->read(dt);
     }
 
@@ -61,10 +62,10 @@ class SensorDataPacker
     }
 
 private:
-    // TorqueSensor *ses1;
-    // TorqueSensor *ses2;
+    TorqueSensor *ses1;
+    TorqueSensor *ses2;
     AngleSensor *ang1;
-    // AngleSensor *ang2;
+    AngleSensor *ang2;
 };
 
 #endif

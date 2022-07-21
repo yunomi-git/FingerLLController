@@ -10,8 +10,10 @@
 #include "../hardware/PT15AngleSensor.h"
 
 #include "../mainController/hardwareInterface/HardwareParameters.h"
-#include "../mainController/hardwareInterface/HardwareManager.h"
-#include "../mainController/hardwareInterface/SensorDataPacker.h"
+// #include "../mainController/hardwareInterface/HardwareManager.h"
+// #include "../mainController/hardwareInterface/SensorDataPacker.h"
+#include "../mainController/hardwareInterface/SensorDataPackerV5.h"
+
 
 
 class __PrintSensors : public ArduinoSketch
@@ -30,8 +32,9 @@ public:
     PT15AngleSensor angle1Sensor;
     PT15AngleSensor angle2Sensor;
 
-    HardwareManager hardwareManager;
-    SensorDataPacker *sensorDataPacker;
+    // HardwareManager hardwareManager;
+    // SensorDataPacker *sensorDataPacker;
+    SensorDataPackerV5 sensorDataPacker;
 
     
 
@@ -52,11 +55,13 @@ public:
                 // Serial.println("aaa done");
 
         hp = HardwareParameters();
-        hardwareManager = HardwareManager(hp);
-        hardwareManager.hardwareSetup();
+        // hardwareManager = HardwareManager(hp);
+        // hardwareManager.hardwareSetup();
         Serial.println("setup done");
 
         // sensorDataPacker = hardwareManager.createSensorDataPacker();
+        sensorDataPacker = SensorDataPackerV5(hp);
+        sensorDataPacker.hardwareSetup();
 
         sensorData = SensorData();
 
@@ -67,23 +72,17 @@ public:
 
     void loop()
     {
-
         if (sensorTimer.isRinging())
         {
             float dt = sensorTimer.dt();
             sensorTimer.restart();
 
-            // sensorDataPacker->read(dt);
-
-            // angle1Sensor.read(dt);
-            // angle2Sensor.read(dt);
-            // sensorData.angle1 = angle1Sensor.getAngleDeg();
-            // sensorData.angle2 = angle2Sensor.getAngleDeg();
+            sensorDataPacker.read(dt);
         }
         if (printTimer.isRinging())
         {
             printTimer.restart();
-            // sensorData = sensorDataPacker->getReading();
+            sensorData = sensorDataPacker.getReading();
             printSensorsDirectly(sensorData);
         }
     }

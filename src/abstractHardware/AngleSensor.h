@@ -31,12 +31,12 @@ class AngleSensor : public Sensor
 
     void read(float dt)
     {
-        // updateHardwareReading(dt);
+        updateHardwareReading(dt);
 
-        // angle = getHardwareAngleDeg();
-        // angleDerivative.update(angle, dt);
+        angle = getHardwareAngleDeg();
+        angleDerivative.update(angle, dt);
 
-        // velocity = angleDerivative.getDerivative();
+        velocity = angleDerivative.getDerivative();
     }
 
     virtual void setZero(float zero); //TODO should this be virtual?
