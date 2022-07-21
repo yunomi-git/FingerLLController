@@ -14,7 +14,6 @@ class PT15AngleSensor : public AngleSensor
 {
     private:
     Potentiometer potentiometer;
-    // Timer velocityTimer;
     float MAX_ANGLE_DEG = 135.0;
     float MIN_ANGLE_DEG = -135.0;
 
@@ -28,7 +27,7 @@ class PT15AngleSensor : public AngleSensor
     public:
     PT15AngleSensor() = default;
     
-    PT15AngleSensor(byte readPin, float alpha=1.0)
+    PT15AngleSensor(byte readPin, float velocityTick, float alpha=1.0) : AngleSensor(velocityTick, alpha)
     {
         this->readPin = readPin;
         this->alpha = alpha;
