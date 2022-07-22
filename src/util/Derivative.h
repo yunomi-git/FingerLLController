@@ -10,6 +10,7 @@ class Derivative
     Timer timer;
     float lastMeasurement;
     float rawDerivative;
+    boolean isFirstMeasurement = true;
     AlphaFilter<float> derivativeFilter;
 
     public:
@@ -32,11 +33,19 @@ class Derivative
         {
             float dt = timer.dt();
             timer.restart();
-            rawDerivative = (measurement - lastMeasurement) / dt;
+            if (isFirstMeasurement) 
+            {
+                rawDerivative = 0.0;
+                isFirstMeasurement = false;
+            }
+            else
+            {
+                rawDerivative = (measurement - lastMeasurement) / dt;
+            }                    
             lastMeasurement = measurement;
-            
+            derivativeFilter.update(rawDerivative);
         }
-        derivativeFilter.update(rawDerivative);
+        
         // else if (measurement != lastMeasurement)
         // {
         //     rawDerivative = (measurement - lastMeasurement) / globalDt;

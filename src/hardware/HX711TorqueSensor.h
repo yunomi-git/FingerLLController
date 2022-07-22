@@ -43,6 +43,11 @@ public:
 	float getTorqueNm() {
 		return torque;
 	}
+
+	void flipDirection()
+	{
+		forceSensor.flipDirection();
+	}
 };
 
 #endif

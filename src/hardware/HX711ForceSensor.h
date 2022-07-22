@@ -56,7 +56,12 @@ public:
 	}
 
 	float getForceN() {
-		return force - getZeroSI();
+		return (force - getZeroSI()) * direction;
+	}
+
+	void flipDirection()
+	{
+		direction *= -1.0;
 	}
 };
 

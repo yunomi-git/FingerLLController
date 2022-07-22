@@ -35,7 +35,12 @@ public:
 	}
 
 	float getTorqueNm() {
-		return torque;
+		return torque * readDirection;
+	}
+
+	void flipDirection()
+	{
+		readDirection *= -1.0;
 	}
 
 public:
@@ -61,6 +66,7 @@ private:
 	Potentiometer potentiometer;
 
 	float torque = 0.0;
+	float readDirection = 1.0;
 
 	// const float SPRING_CONSTANT = 1.2; for 0.625", original spring
 	byte readPin;

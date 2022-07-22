@@ -27,9 +27,10 @@ class PT15AngleSensor : public AngleSensor
     public:
     PT15AngleSensor() = default;
     
-    PT15AngleSensor(byte readPin, float velocityTick, float angleAlpha=1.0, float velocityAlpha=1.0) : AngleSensor(velocityTick, angleAlpha, velocityAlpha)
+    PT15AngleSensor(byte readPin, float zero, float velocityTick, float angleAlpha=1.0, float velocityAlpha=1.0) : AngleSensor(velocityTick, angleAlpha, velocityAlpha)
     {
         this->readPin = readPin;
+        setZero(zero);
         // this->alpha = alpha;
         potentiometer = Potentiometer(readPin);
     }
