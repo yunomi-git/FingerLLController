@@ -1,6 +1,8 @@
 #ifndef __SKETCH__
 #define __SKETCH__
 
+// hold hx711 on table and add weights
+
 #include "../ArduinoSketch.h"
 #include "./hardwareInterface/HardwareParameters.h"
 

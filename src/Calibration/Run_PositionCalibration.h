@@ -1,6 +1,8 @@
 #ifndef __SKETCH__
 #define __SKETCH__
 
+// just move the finger around. make sure 0 is 0
+
 #include "../ArduinoSketch.h"
 #include "hardwareInterface/HardwareParameters.h"
 

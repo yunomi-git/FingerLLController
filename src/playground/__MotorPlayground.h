@@ -1,6 +1,9 @@
 #ifndef __SKETCH__
 #define __SKETCH__
 
+// this runs the motors based off the potentiometers
+// MAKE SURE SES ARE DISCONENCTED
+
 #include "ArduinoSketch.h"
 #include <Arduino.h>
 #include "../externalInterface/JavaCommandInterface.h"

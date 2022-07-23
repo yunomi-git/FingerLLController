@@ -1,6 +1,8 @@
 #ifndef __SKETCH__
 #define __SKETCH__
 
+
+
 #include "ArduinoSketch.h"
 #include <Arduino.h>
 #include "../externalInterface/JavaCommandInterface.h"
@@ -11,6 +13,7 @@
 #include "../mainController/hardwareInterface/HardwareParameters.h"
 #include "../hardware/PT15AngleSensor.h"
 
+// streams sensor data to java side 
 
 class Run_SerialWriter : public ArduinoSketch
 {

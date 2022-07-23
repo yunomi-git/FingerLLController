@@ -1,10 +1,13 @@
 #ifndef __SKETCH__
 #define __SKETCH__
 
+// calibrate a pid controller for a simulated system
+
 #include "ArduinoSketch.h"
 
 #include "mainController/PIDController.h"
 #include "../util/Timer.h"
+
 
 class __PidOfflineTest : public ArduinoSketch
 {
@@ -42,8 +45,8 @@ class __PidOfflineTest : public ArduinoSketch
         gains.maxIntegrator = 1.0;
         gains.maxControl = 0.6;
 
-        gains.alphaDerivative = 0.5;
-        gains.derivativeTime = 0.1;
+        gains.alphaDerivative = 0.1;
+        gains.derivativeTime = 0.01;
 
         bias = -0.5;
         biasTimer.set(5.0);

@@ -1,6 +1,10 @@
 #ifndef __SKETCH__
 #define __SKETCH__
 
+// 1. place hx711 on ses and use it to calibrate stiffness
+// 2. move potentiometer to min and max of friction. average = offset
+// 3. set deadband to max - min (/2?)
+
 #include "../ArduinoSketch.h"
 #include "hardwareInterface/HardwareParameters.h"
 

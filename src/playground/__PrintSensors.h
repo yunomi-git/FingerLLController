@@ -1,6 +1,8 @@
 #ifndef __SKETCH__
 #define __SKETCH__
 
+// Just prints out the sensots
+
 #include "ArduinoSketch.h"
 #include <Arduino.h>
 #include "../externalInterface/JavaCommandInterface.h"
