@@ -10,9 +10,10 @@ struct PIDGains {
 	float kp;
 	float ki;
 	float kd;
+
 	float maxIntegrator;
 	float maxControl;
-	float minControl;
+	
 	float alphaDerivative;
 	float derivativeTime;
 
@@ -21,7 +22,6 @@ struct PIDGains {
 		alphaDerivative = 1.0;
 		maxIntegrator = __FLT_MAX__;
 		maxControl = __FLT_MAX__;
-		minControl = __FLT_MIN__;
 	}
 };
 
@@ -34,7 +34,7 @@ public:
 		this->gains = gains;
 		prevError = 0.0;
 		errorIntegrator = 0.0;
-		errorDerivative = Derivative(gains.derivativeTime);
+		errorDerivative = Derivative(gains.derivativeTime, gains.alphaDerivative);
 	}
 
 	void setPIDGains(PIDGains gains) {
@@ -46,22 +46,26 @@ public:
 		errorIntegrator = 0.0;
 	}
 
-	float stepAndGet(float error, float dt) 
+	float stepAndGet(float measured, float desired, float dt) 
 	{
+		float error = measured - desired;
 		errorDerivative.update(error, dt);
 		float derror = errorDerivative.getDerivative();
+		
+		float controlNoIntegrator = -gains.kp * error +
+									-gains.kd * derror;
+		controlNoIntegrator = fbound(controlNoIntegrator, -gains.maxControl, gains.maxControl);
 
-		float controlNoIntegrator = gains.kp * error +
-									gains.kd * derror;
-
-		errorIntegrator += gains.ki * error * dt;
+		errorIntegrator += -gains.ki * error * dt;
 		float maxErrorIntegrator = fmin(gains.maxIntegrator, 					 // default integrator maximum
 										gains.maxControl - controlNoIntegrator); // integrator should not exceed control maximum
 		float minErrorIntegrator = fmax(-gains.maxIntegrator, 					 // default integrator minimum
-										gains.minControl - controlNoIntegrator); // integrator should not exceed control minimum
+										-gains.maxControl - controlNoIntegrator); // integrator should not exceed control minimum
 		errorIntegrator = fbound(errorIntegrator, minErrorIntegrator, maxErrorIntegrator);
 
-		float control = errorIntegrator + controlNoIntegrator;
+		float control = controlNoIntegrator + errorIntegrator;
+		control = fbound(control, -gains.maxControl, gains.maxControl);
+
 
 		return control;
 	}

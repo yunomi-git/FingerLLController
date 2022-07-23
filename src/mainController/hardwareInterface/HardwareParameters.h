@@ -54,6 +54,8 @@ struct HardwareParameters
     float MAX_READ_ANGLE = 90.0; // deg
     // ............
 
+    float controlDt = 0.0001;
+
     struct MotorDriverParam
     {
         float SUPPLY_VOLTAGE;

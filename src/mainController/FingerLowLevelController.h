@@ -5,9 +5,9 @@
 #include "../packets/JointSpaceCommand.h"
 #include "../packets/SensorData.h"
 
-#include "hardwareInterface/SensorDataPacker.h"
+#include "hardwareInterface/SensorDataPackerV5.h"
 #include "hardwareInterface/VoltageCommand.h"
-#include "hardwareInterface/ActuatorWriter.h"
+#include "hardwareInterface/ActuatorWriterV5.h"
 
 #include "hardwareInterface/HardwareParameters.h"
 #include "hardwareInterface/HardwareManager.h"
@@ -24,17 +24,17 @@ public:
 
     FingerLowLevelController(HardwareParameters hp, ControllerParameters cp)
     {
-        hardwareManager = HardwareManager(hp);
-        sensorDataPacker = hardwareManager.createSensorDataPacker();
-        // actuatorWriter = hardwareManager.createActuatorWriter();
-        maxVoltage = hp.MOTOR_VOLTAGE;
+        MIN_TIME_BETWEEN_CONTROL = hp.controlDt;
+        actuatorWriter = ActuatorWriterV5(hp);
+        sensorDataPacker = SensorDataPackerV5(hp);
 
-        // controlComputer = ControlComputer(hp, cp);
+        controlComputer = ControlComputer(hp, cp);
     }
 
     void hardwareSetup()
     {
-        hardwareManager.hardwareSetup();
+        actuatorWriter.hardwareSetup();
+        sensorDataPacker.hardwareSetup();
         timer.usePrecision();
         timer.set(MIN_TIME_BETWEEN_CONTROL);
     }
@@ -51,15 +51,15 @@ public:
             float dt = timer.dt();
             timer.restart();
 
-            sensorDataPacker->read(dt);
-            sensorData = sensorDataPacker->getReading();
+            sensorDataPacker.read(dt);
+            sensorData = sensorDataPacker.getReading();
 
-            // controlComputer.submitJointspaceCommand(jointSpaceCommand);
-            // controlComputer.compute(sensorData, dt);
-            // VoltageCommand voltageCommand = controlComputer.getVoltageCommand();
+            controlComputer.submitJointspaceCommand(jointSpaceCommand);
+            controlComputer.compute(sensorData, dt);
+            VoltageCommand voltageCommand = controlComputer.getVoltageCommand();
 
-            // actuatorWriter->setCommand(voltageCommand);
-            // actuatorWriter->write();
+            actuatorWriter.setCommand(voltageCommand);
+            actuatorWriter.write();
         }
 
     }
@@ -71,21 +71,18 @@ public:
     }
 
     private:
-    float maxVoltage;
     JointSpaceCommand jointSpaceCommand;
 
-    HardwareManager hardwareManager;
-    
-    SensorDataPacker *sensorDataPacker;
+    SensorDataPackerV5 sensorDataPacker;
     SensorData sensorData;
 
-    // ControlComputer controlComputer;
+    ControlComputer controlComputer;
 
-    // ActuatorWriter *actuatorWriter;
+    ActuatorWriterV5 actuatorWriter;
 
     Timer timer;
 
-    float MIN_TIME_BETWEEN_CONTROL = 0.0001; //sec
+    float MIN_TIME_BETWEEN_CONTROL; //sec
 };
 
 
