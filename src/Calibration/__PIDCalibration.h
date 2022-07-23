@@ -4,29 +4,44 @@
 #include "ArduinoSketch.h"
 
 #include "mainController/PIDController.h"
+
+#include "hardware/PT15AngleSensor.h"
+#include "hardware/PT15SeriesElasticSensor.h"
+#include "hardware/L298NMotorDriver.h"
+
+#include "mainController/hardwareInterface/HardwareParameters.h"
+
+#include "packets/SensorData.h"
+#include "packets/ControlMode.h"
+#include "mainController/hardwareInterface/VoltageCommand.h"
+
+
+#include "../externalInterface/ArduinoCommandInterface.h"
+
 #include "../util/Timer.h"
+
 
 class __PidOfflineTest : public ArduinoSketch
 {
-    float desired;
+    bool calibratingMotor1 = true;
+    ControlMode controlMode = ControlMode::POSITION;
 
-    float x;
-    float v;
-    float a;
+    ArduinoInputCommand inputReader;
 
-    float noiseMagnitude;
-    float noise;
+    HardwareParameters hp;
 
-    float bias;
-    Timer biasTimer;
-
-    float u;
+    PT15AngleSensor angleSensor;
+    PT15SeriesElasticSensor torqueSensor;
+    L298NMotorDriver motorDriver;
 
     PIDController controller;
     PIDGains gains;
 
+    float desired;
+    float measured;
+    float control;
+
     Timer dtTimer;
-    Timer continuousTimer;
 
     Timer printTimer;
 
@@ -40,18 +55,28 @@ class __PidOfflineTest : public ArduinoSketch
         gains.kd = 1.0;
         gains.maxIntegrator = 1.0;
         gains.maxControl = 0.6;
-        gains.alphaDerivative = 0.5;
-        gains.derivativeTime = 0.1;
+        gains.alphaDerivative = 0.1;
+        gains.derivativeTime = 0.01;
 
-        bias = -0.5;
-        biasTimer.set(5.0);
-        noiseMagnitude = 0.1;
+        inputReader = ArduinoInputCommand(controlMode, hp.POT_1_READ_PIN, hp.POT_2_READ_PIN, hp);
+
+        hp = HardwareParameters();
 
         controller = PIDController(gains);
 
         dtTimer.set(0.001);
 
         printTimer.set(0.01);
+
+        if (calibratingMotor1)
+        {
+// TODO don't forget to set direction of sensors and actuators!!
+        }
+        else
+        {
+
+        }
+
     }
 
     void loop()
@@ -60,45 +85,43 @@ class __PidOfflineTest : public ArduinoSketch
         {
             float dt = dtTimer.dt();
             dtTimer.restart();
-            // float t = continuousTimer.dt();
 
-            desired = 1.0;
-            // desired = sin(2 * pi * t)
-            // Serial.println(dt, 5);
+            // get desired
+            JointSpaceCommand jointSpaceCommand = inputReader.recieve();
+            desired = jointSpaceCommand.input1;
 
-            simulateDynamics(dt);
-            doControl(dt);
+            // get measurement
+            if (controlMode == ControlMode::POSITION)
+            {
+                angleSensor.read();
+                measured = angleSensor.getAngleDeg();   
+            }
+            else
+            {
+                torqueSensor.read();
+                measured = torqueSensor.getTorqueNm();
+            }
+
+            // get control
+            control = controller.stepAndGet(measured, desired, dt);
+
+            // send to motor
+            motorDriver.submitVoltage(control);
+            motorDriver.write();
         }
 
         if (printTimer.isRinging())
         {
             printTimer.restart();
-            Serial.print(x + noise); Serial.print(",");
             Serial.print(desired); Serial.print(",");
-            Serial.print(u); Serial.print(",");
-            Serial.print(bias);
+            Serial.print(measured); Serial.print(",");
+            Serial.print(control);
             Serial.println();
         }
 
     }
 
-    void simulateDynamics(float dt)
-    {
-        if (biasTimer.isRinging())
-        {
-            bias = 0;
-            biasTimer.stopRinging();
-        }
-        noise = noiseMagnitude * random(-1.0, 1.0);
-        a = u + bias;
-        v += a * dt;
-        x += v * dt;
-    }
 
-    void doControl(float dt)
-    {
-        u = controller.stepAndGet(x + noise, desired, dt);
-    }
 
 };
 

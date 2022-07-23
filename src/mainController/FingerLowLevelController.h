@@ -25,9 +25,9 @@ public:
     FingerLowLevelController(HardwareParameters hp, ControllerParameters cp)
     {
         MIN_TIME_BETWEEN_CONTROL = hp.controlDt;
+        
         actuatorWriter = ActuatorWriterV5(hp);
         sensorDataPacker = SensorDataPackerV5(hp);
-
         controlComputer = ControlComputer(hp, cp);
     }
 

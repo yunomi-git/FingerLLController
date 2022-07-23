@@ -47,14 +47,12 @@ class ArduinoInputCommand : public JointSpaceCommandInterface
         switch (controlMode)
         {
             case TORQUE:
-                jointSpaceCommand.input1 = (read1 - 0.5) * maxTorque * 2;
-                jointSpaceCommand.input2 = (read2 - 0.5) * maxTorque * 2;
+                jointSpaceCommand.input1 = (read1) * maxTorque;
+                jointSpaceCommand.input2 = (read2) * maxTorque;
             case POSITION:
                 jointSpaceCommand.input1 = read1 * maxAngle1;
                 jointSpaceCommand.input2 = read2 * maxAngle2;
             case VOLTAGE:
-                // jointSpaceCommand.input1 = (read1) ;
-                // jointSpaceCommand.input2 = (read2) ;
                 jointSpaceCommand.input1 = (read1 - 0.5) * 2.0 * maxVoltage;
                 jointSpaceCommand.input2 = (read2 - 0.5) * 2.0 * maxVoltage;
         }
