@@ -9,13 +9,17 @@ class PT15SeriesElasticSensor : public TorqueSensor {
 public:
 	PT15SeriesElasticSensor() = default;
 
-	PT15SeriesElasticSensor(byte readPin, float springConstant, float tareOffset, float deadbandSize) 
+	PT15SeriesElasticSensor(byte readPin, float springConstant, float tareOffset, float deadbandSize, bool wantFlipDirection=false) 
 	{
 		this->readPin = readPin;
 		this->springConstant = springConstant;
 		this->tareOffset = tareOffset;
 		this->deadbandSize = deadbandSize;
 		potentiometer = Potentiometer(readPin);
+		if (wantFlipDirection)
+		{
+			flipDirection();
+		}
 	}
 
 	void hardwareSetup() {

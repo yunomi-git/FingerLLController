@@ -10,12 +10,16 @@ class L298NMotorDriver : public MotorDriver {
 public:
 	L298NMotorDriver() = default;
 
-    L298NMotorDriver(float supplyVoltage, byte ENA, byte DIR1, byte DIR2) 
+    L298NMotorDriver(float supplyVoltage, byte ENA, byte DIR1, byte DIR2, bool flipDirection=false) 
         : MotorDriver(supplyVoltage) 
     {
         this->ENA = ENA;
         this->DIR1 = DIR1;
         this->DIR2 = DIR2;
+        if (flipDirection)
+        {
+            setDirection(NEGATIVE_DIRECTION);
+        }
     }
 
     void hardwareSetup() 

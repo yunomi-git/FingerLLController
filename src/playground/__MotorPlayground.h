@@ -37,12 +37,11 @@ public:
         commandInterface.hardwareSetup();
         if (useMotor1)
         {
-            motorDriver = L298NMotorDriver(hp.MOTOR_VOLTAGE, hp.motorDriver1.ENA_PIN, hp.motorDriver1.DIR1_PIN, hp.motorDriver1.DIR2_PIN);
-            motorDriver.setDirection(NEGATIVE_DIRECTION);
+            motorDriver = L298NMotorDriver(hp.MOTOR_VOLTAGE, hp.motorDriver1.ENA_PIN, hp.motorDriver1.DIR1_PIN, hp.motorDriver1.DIR2_PIN, hp.motorDriver1.flipDirection);
         }
         else
         {
-            motorDriver = L298NMotorDriver(hp.MOTOR_VOLTAGE, hp.motorDriver2.ENA_PIN, hp.motorDriver2.DIR1_PIN, hp.motorDriver2.DIR2_PIN);
+            motorDriver = L298NMotorDriver(hp.MOTOR_VOLTAGE, hp.motorDriver2.ENA_PIN, hp.motorDriver2.DIR1_PIN, hp.motorDriver2.DIR2_PIN, hp.motorDriver2.flipDirection);
             
         }
         motorDriver.hardwareSetup();

@@ -10,6 +10,7 @@ struct HardwareParameters
         motorDriver1.ENA_PIN = 2;
         motorDriver1.DIR1_PIN = 3; // in1
         motorDriver1.DIR2_PIN = 4; // in2
+        motorDriver1.flipDirection = true;
 
         motorDriver2.DIR2_PIN = 5; // in3
         motorDriver2.DIR1_PIN = 6; // in4
@@ -34,6 +35,7 @@ struct HardwareParameters
         sensorParameters.torque1.SCALE = 2.7;
         sensorParameters.torque1.RAW_OFFSET = 0.5265;
         sensorParameters.torque1.DEADBAND = 0.018;
+        sensorParameters.torque1.flipDirection = true;
     }
 
     float MOTOR_VOLTAGE = 12.0;
@@ -62,6 +64,7 @@ struct HardwareParameters
         byte ENA_PIN;
         byte DIR1_PIN;
         byte DIR2_PIN;
+        bool flipDirection = false;
     };
 
     struct SensorParameters
@@ -71,6 +74,7 @@ struct HardwareParameters
             byte READ_PIN;
             float ALPHA;
             float ZERO;
+            bool flipDirection = false;
         };
 
         struct TorqueSensorParam
@@ -79,6 +83,7 @@ struct HardwareParameters
             float SCALE;
             float RAW_OFFSET;
             float DEADBAND;
+            bool flipDirection = false;
         };
 
         AngleSensorParam angle1;

@@ -23,7 +23,7 @@
 
 class __PidOfflineTest : public ArduinoSketch
 {
-    bool calibratingMotor1 = true;
+    bool calibratingProximalJoint = true;
     ControlMode controlMode = ControlMode::POSITION;
 
     ArduinoInputCommand inputReader;
@@ -61,6 +61,7 @@ class __PidOfflineTest : public ArduinoSketch
         inputReader = ArduinoInputCommand(controlMode, hp.POT_1_READ_PIN, hp.POT_2_READ_PIN, hp);
 
         hp = HardwareParameters();
+        HardwareParameters::SensorParameters sp = hp.sensorParameters;
 
         controller = PIDController(gains);
 
@@ -68,13 +69,17 @@ class __PidOfflineTest : public ArduinoSketch
 
         printTimer.set(0.01);
 
-        if (calibratingMotor1)
+        if (calibratingProximalJoint)
         {
-// TODO don't forget to set direction of sensors and actuators!!
+            motorDriver = L298NMotorDriver(hp.MOTOR_VOLTAGE, hp.motorDriver1.ENA_PIN, hp.motorDriver1.DIR1_PIN, hp.motorDriver1.DIR2_PIN, hp.motorDriver1.flipDirection);
+            angleSensor = PT15AngleSensor(sp.angle1.READ_PIN, sp.angle1.ZERO, sp.velocityReadTick, sp.angleAlphaFilter, sp.velocityAlphaFilter);
+            torqueSensor = PT15SeriesElasticSensor(sp.torque1.READ_PIN, sp.torque1.SCALE, sp.torque1.RAW_OFFSET, sp.torque1.DEADBAND, sp.torque1.flipDirection);
         }
         else
         {
-
+            motorDriver = L298NMotorDriver(hp.MOTOR_VOLTAGE, hp.motorDriver2.ENA_PIN, hp.motorDriver2.DIR1_PIN, hp.motorDriver2.DIR2_PIN, hp.motorDriver2.flipDirection);
+            angleSensor = PT15AngleSensor(sp.angle2.READ_PIN, sp.angle2.ZERO, sp.velocityReadTick, sp.angleAlphaFilter, sp.velocityAlphaFilter);
+            torqueSensor = PT15SeriesElasticSensor(sp.torque2.READ_PIN, sp.torque2.SCALE, sp.torque2.RAW_OFFSET, sp.torque2.DEADBAND, sp.torque2.flipDirection);
         }
 
     }
@@ -93,12 +98,12 @@ class __PidOfflineTest : public ArduinoSketch
             // get measurement
             if (controlMode == ControlMode::POSITION)
             {
-                angleSensor.read();
+                angleSensor.read(dt);
                 measured = angleSensor.getAngleDeg();   
             }
             else
             {
-                torqueSensor.read();
+                torqueSensor.read(dt);
                 measured = torqueSensor.getTorqueNm();
             }
 

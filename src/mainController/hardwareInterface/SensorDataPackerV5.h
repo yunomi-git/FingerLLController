@@ -16,9 +16,8 @@ class SensorDataPackerV5
     SensorDataPackerV5(HardwareParameters hp)
     {
         HardwareParameters::SensorParameters sp = hp.sensorParameters;
-        torque1Sensor = PT15SeriesElasticSensor(sp.torque1.READ_PIN, sp.torque1.SCALE, sp.torque1.RAW_OFFSET, sp.torque1.DEADBAND);
-        torque1Sensor.flipDirection();
-        torque2Sensor = PT15SeriesElasticSensor(sp.torque2.READ_PIN, sp.torque2.SCALE, sp.torque2.RAW_OFFSET, sp.torque2.DEADBAND);
+        torque1Sensor = PT15SeriesElasticSensor(sp.torque1.READ_PIN, sp.torque1.SCALE, sp.torque1.RAW_OFFSET, sp.torque1.DEADBAND, sp.torque1.flipDirection);
+        torque2Sensor = PT15SeriesElasticSensor(sp.torque2.READ_PIN, sp.torque2.SCALE, sp.torque2.RAW_OFFSET, sp.torque2.DEADBAND, sp.torque2.flipDirection);
         angle1Sensor = PT15AngleSensor(sp.angle1.READ_PIN, sp.angle1.ZERO, sp.velocityReadTick, sp.angleAlphaFilter, sp.velocityAlphaFilter);
         angle2Sensor = PT15AngleSensor(sp.angle2.READ_PIN, sp.angle2.ZERO, sp.velocityReadTick, sp.angleAlphaFilter, sp.velocityAlphaFilter);
     }
