@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "FingerLLController",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.tcc": "cpp",
+			"cmath": "cpp",
+			"string": "cpp",
+			"type_traits": "cpp",
+			"typeinfo": "cpp"
+		}
+	}
+}

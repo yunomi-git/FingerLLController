@@ -22,7 +22,7 @@ class __MotorPlayground : public ArduinoSketch
     ArduinoInputCommand commandInterface;
     L298NMotorDriver motorDriver;
     HardwareParameters hp;
-    bool useMotor1 = true;
+    bool useMotor1 = false;
 
 
 public:
