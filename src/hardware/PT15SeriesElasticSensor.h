@@ -6,15 +6,19 @@
 #include "Arduino.h"
 
 class PT15SeriesElasticSensor : public TorqueSensor {
+private:
+	AlphaFilter<float> alphaFilter;
 public:
+
 	PT15SeriesElasticSensor() = default;
 
-	PT15SeriesElasticSensor(byte readPin, float springConstant, float tareOffset, float deadbandSize, bool wantFlipDirection=false) 
+	PT15SeriesElasticSensor(byte readPin, float springConstant, float tareOffset, float deadbandSize, float alpha=1.0, bool wantFlipDirection=false) 
 	{
 		this->readPin = readPin;
 		this->springConstant = springConstant;
 		this->tareOffset = tareOffset;
 		this->deadbandSize = deadbandSize;
+		alphaFilter = AlphaFilter<float>(alpha);
 		potentiometer = Potentiometer(readPin);
 		if (wantFlipDirection)
 		{
@@ -36,6 +40,8 @@ public:
 		float read = potentiometer.getReadingNormalized() - getZeroSI();
 		read = applyDeadband(read);
 		torque = convertReadToTorqueNm(read);
+		alphaFilter.update(torque);
+		torque = alphaFilter.getFilteredData();
 	}
 
 	float getTorqueNm() {

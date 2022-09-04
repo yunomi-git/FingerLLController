@@ -20,21 +20,21 @@ struct HardwareParameters
         sensorParameters.velocityAlphaFilter = 0.5;
         sensorParameters.velocityReadTick = 0.005;
 
-        sensorParameters.angle1.READ_PIN = 23;
-        sensorParameters.angle1.ZERO = 3.5626;
+        sensorParameters.angle2.READ_PIN = 23;
+        sensorParameters.angle2.ZERO = 16.0;
 
-        sensorParameters.angle2.READ_PIN = 22;
-        sensorParameters.angle2.ZERO = -0.9225;
+        sensorParameters.angle1.READ_PIN = 22;
+        sensorParameters.angle1.ZERO = 12.0;
         
         sensorParameters.torque2.READ_PIN = 20;
         sensorParameters.torque2.SCALE = 2.7;
-        sensorParameters.torque2.RAW_OFFSET = 0.4995;
+        sensorParameters.torque2.RAW_OFFSET = 0.5048;
         sensorParameters.torque2.DEADBAND = 0.017;
 
         sensorParameters.torque1.READ_PIN = 21;
         sensorParameters.torque1.SCALE = 2.7;
-        sensorParameters.torque1.RAW_OFFSET = 0.5265;
-        sensorParameters.torque1.DEADBAND = 0.018;
+        sensorParameters.torque1.RAW_OFFSET = 0.5048;
+        sensorParameters.torque1.DEADBAND = 0.028;
         sensorParameters.torque1.flipDirection = true;
     }
 
@@ -46,7 +46,7 @@ struct HardwareParameters
     float MAX_ANGLE_2 = 90;
     
     // TODO: Should these be part of Constants.h? .....
-    float MAX_READ_TORQUE = 0.4; // Nm
+    float MAX_READ_TORQUE = 0.3; // Nm
     float MIN_READ_TORQUE = -MAX_READ_TORQUE;
 
     float MAX_READ_VELOCITY = 300.0; // deg/sec

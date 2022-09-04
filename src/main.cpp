@@ -9,14 +9,16 @@
 // #include "Calibration/Run_PositionCalibration.h"
 // #include "playground/__PrintSensors.h"
 
+
 // ------- CPP testing ------------
 // #include "playground/__PointerTest.h"
 
 // #include "playground/Run__SerialWriter.h"
-#include "playground/__MotorPlayground.h"
+// #include "playground/__MotorPlayground.h"
 
 // ---------- Controller stuff -----------
 // #include "playground/__PidOfflineTest.h"
+#include "Calibration/__PIDCalibration.h"
 
 ArduinoSketch *sketch;
 
@@ -30,9 +32,10 @@ void setup()
     // sketch = new Run_SerialWriter();
     // sketch = new __PrintSensors();
     // sketch = new Run_PositionCalibration();
-    sketch = new __MotorPlayground();
+    // sketch = new __MotorPlayground();
 
     // sketch = new __PidOfflineTest();
+    sketch = new __PidCalibration();
 
     // sketch = new __PointerTest();
     sketch->setup();

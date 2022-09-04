@@ -52,23 +52,17 @@ class ControlComputer
 private:
     VoltageCommand computePositionControlCommand(SensorData sensorData, float desiredAngle1, float desiredAngle2, float dt)
     {
-        float angle1Error = sensorData.angle1 - desiredAngle1;
-        float angle2Error = sensorData.angle2 - desiredAngle2;
-
         VoltageCommand voltageCommand = VoltageCommand();
-        voltageCommand.voltage1 = angleController1.stepAndGet(angle1Error, dt);
-        voltageCommand.voltage2 = angleController2.stepAndGet(angle2Error, dt);
+        voltageCommand.voltage1 = angleController1.stepAndGet(sensorData.angle1, desiredAngle1, dt);
+        voltageCommand.voltage2 = angleController2.stepAndGet(sensorData.angle2, desiredAngle2, dt);
         return voltageCommand; 
     }
 
     VoltageCommand computeTorqueControlCommand(SensorData sensorData, float desiredTorque1, float desiredTorque2, float dt)
     {
-        float torque1Error = sensorData.torque1 - desiredTorque1;
-        float torque2Error = sensorData.torque2 - desiredTorque2;
-
         VoltageCommand voltageCommand = VoltageCommand();
-        voltageCommand.voltage1 = torqueController1.stepAndGet(torque1Error, dt);
-        voltageCommand.voltage2 = torqueController2.stepAndGet(torque2Error, dt);
+        voltageCommand.voltage1 = torqueController1.stepAndGet(sensorData.torque1, desiredTorque1, dt);
+        voltageCommand.voltage2 = torqueController2.stepAndGet(sensorData.torque2, desiredTorque2, dt);
         return voltageCommand; 
     }
 

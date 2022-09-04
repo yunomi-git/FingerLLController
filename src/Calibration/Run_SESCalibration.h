@@ -18,8 +18,8 @@ class Run_SESCalibration : public ArduinoSketch
     // ..... alter these parameters for tuning ......
     byte readPin = 21;
     float springConstant = 2.7;
-    float deadbandSize = 0.018;
-    float tareOffset = 0.5265;
+    float deadbandSize = 0.028;
+    float tareOffset = 0.498; // 0.556, 0.484
     // ..............................................
 
     PT15SeriesElasticSensor sesSensor;

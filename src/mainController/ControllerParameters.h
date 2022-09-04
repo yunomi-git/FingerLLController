@@ -22,14 +22,21 @@ struct ControllerParameters
         angle2Gains.ki = 0.0;
         angle2Gains.maxIntegrator = 0.0;
 
-        torque1Gains.kp = 1.0;
-        torque1Gains.kd = 0.0;
-        torque1Gains.maxIntegrator = 0.0;
+        torque1Gains.kp = 40.0;
+        torque1Gains.kd = 0.1;
+        torque1Gains.ki = 30.0;
+        torque1Gains.maxIntegrator = 5.5;
+        torque1Gains.maxControl = 12.0;
+        torque1Gains.alphaDerivative = 0.01;
+        torque1Gains.derivativeTime = 0.01;
 
-        torque2Gains.kp = 1.0;
-        torque2Gains.kd = 0.0;
-        torque2Gains.ki = 0.0;
-        torque2Gains.maxIntegrator = 0.0;
+        torque2Gains.kp = 40.0;
+        torque2Gains.kd = 0.1;
+        torque2Gains.ki = 30.0;
+        torque2Gains.maxIntegrator = 5.5;
+        torque2Gains.maxControl = 12.0;
+        torque2Gains.alphaDerivative = 0.01;
+        torque2Gains.derivativeTime = 0.01;
     }
 };
 

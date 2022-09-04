@@ -10,6 +10,11 @@ struct Direction
         value = dir;
     }
 
+    boolean equals(Direction d)
+    {
+        return d.value == value;
+    }
+
     float value;
 };
 
