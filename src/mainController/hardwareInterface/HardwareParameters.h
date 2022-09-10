@@ -10,11 +10,12 @@ struct HardwareParameters
         motorDriver1.ENA_PIN = 2;
         motorDriver1.DIR1_PIN = 3; // in1
         motorDriver1.DIR2_PIN = 4; // in2
-        motorDriver1.flipDirection = true;
+        // motorDriver1.flipDirection = true;
 
         motorDriver2.DIR2_PIN = 5; // in3
         motorDriver2.DIR1_PIN = 6; // in4
         motorDriver2.ENA_PIN = 7;
+        // motorDriver2.flipDirection = true;
 
         sensorParameters.angleAlphaFilter = 0.01;
         sensorParameters.velocityAlphaFilter = 0.5;

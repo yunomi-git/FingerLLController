@@ -50,22 +50,20 @@ class __PidCalibration : public ArduinoSketch
     Timer dtTimer;
 
     Timer printTimer;
-
-    float feedforward = 8.0;
-
     public:
     __PidCalibration() = default;
 
     void setup()
     {
         torqueGains.kp = 40.0;
-        torqueGains.ki = 30.0;
-        torqueGains.kd = 0.1;
+        torqueGains.ki = 20.0;
+        torqueGains.kd = 1.0;
         torqueGains.maxIntegrator = 5.5;
         torqueGains.maxControl = 12.0;
-        torqueGains.alphaDerivative = 0.001;
+        torqueGains.alphaDerivative = 0.01;
         torqueGains.derivativeTime = 0.01;
-        float torqueFeedForward = 8.0;
+        float torqueFeedForward = 3.0;
+        bool torqueDoResetIntegrator = false;
 
         positionGains.kp = 0.2;
         positionGains.ki = 0.05;
@@ -74,7 +72,7 @@ class __PidCalibration : public ArduinoSketch
         positionGains.maxControl = 12.0;
         positionGains.alphaDerivative = 0.01;
         positionGains.derivativeTime = 0.01;
-        float positionFeedForward = 8.0;
+        float positionFeedForward = 3.0;
         float hysteresisSize = 0.0;
         float minimumTorque = 0.03; // actual min is 0.05
 
@@ -85,8 +83,8 @@ class __PidCalibration : public ArduinoSketch
         hp = HardwareParameters();
         HardwareParameters::SensorParameters sp = hp.sensorParameters;
 
-        torqueController = FeedForwardController(torqueFeedForward, torqueGains);
-        positionController = PositionTensionController(positionFeedForward, hysteresisSize, minimumTorque, positionGains, torqueController);
+        torqueController = FeedForwardController(torqueFeedForward, torqueGains, torqueDoResetIntegrator);
+        positionController = PositionTensionController(positionFeedForward, hysteresisSize, minimumTorque, positionGains, torqueController, false);
 
         dtTimer.set(0.001);
 

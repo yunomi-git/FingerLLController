@@ -22,7 +22,7 @@ class __MotorPlayground : public ArduinoSketch
     ArduinoInputCommand commandInterface;
     L298NMotorDriver motorDriver;
     HardwareParameters hp;
-    bool useMotor1 = false;
+    bool useMotor1 = true;
 
 
 public:
@@ -37,12 +37,19 @@ public:
         commandInterface.hardwareSetup();
         if (useMotor1)
         {
-            motorDriver = L298NMotorDriver(hp.MOTOR_VOLTAGE, hp.motorDriver1.ENA_PIN, hp.motorDriver1.DIR1_PIN, hp.motorDriver1.DIR2_PIN, hp.motorDriver1.flipDirection);
+            motorDriver = L298NMotorDriver(hp.MOTOR_VOLTAGE, 
+                hp.motorDriver1.ENA_PIN, 
+                hp.motorDriver1.DIR1_PIN, 
+                hp.motorDriver1.DIR2_PIN, 
+                hp.motorDriver1.flipDirection);
         }
         else
         {
-            motorDriver = L298NMotorDriver(hp.MOTOR_VOLTAGE, hp.motorDriver2.ENA_PIN, hp.motorDriver2.DIR1_PIN, hp.motorDriver2.DIR2_PIN, hp.motorDriver2.flipDirection);
-            
+            motorDriver = L298NMotorDriver(hp.MOTOR_VOLTAGE, 
+                hp.motorDriver2.ENA_PIN, 
+                hp.motorDriver2.DIR1_PIN, 
+                hp.motorDriver2.DIR2_PIN, 
+                hp.motorDriver2.flipDirection);
         }
         motorDriver.hardwareSetup();
     }

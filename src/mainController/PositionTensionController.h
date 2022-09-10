@@ -19,9 +19,9 @@ private:
 public:
     PositionTensionController() = default;
 
-    PositionTensionController(float feedForward, float hysteresisSize, float minimumTorque, PIDGains pidGains, FeedForwardController &torqueController)
+    PositionTensionController(float feedForward, float hysteresisSize, float minimumTorque, PIDGains pidGains, FeedForwardController &torqueController, bool doResetIntegrator)
     {
-        positionController = FeedForwardController(feedForward, pidGains);
+        positionController = FeedForwardController(feedForward, pidGains, doResetIntegrator);
         this->torqueController = torqueController;
         this->hysteresisSize = hysteresisSize;
         this->minimumTorque = minimumTorque;

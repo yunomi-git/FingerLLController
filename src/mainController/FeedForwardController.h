@@ -9,15 +9,17 @@ private:
     PIDController pidController;
     float feedForward;
     PIDGains pidGains;
+    bool doResetIntegrator;
 
     float lastControl = 1.0;
 
 public:
     FeedForwardController() = default;
 
-    FeedForwardController(float feedForward, PIDGains pidGains)
+    FeedForwardController(float feedForward, PIDGains pidGains, bool doResetIntegrator)
     {
         this->feedForward = feedForward;
+        this->doResetIntegrator = doResetIntegrator;
         this->pidGains = pidGains;
         pidController = PIDController(pidGains);
     }
@@ -32,7 +34,7 @@ public:
         float control = pidController.stepAndGet(measured, desired, dt);
         if (control > 0)
         {
-            if (lastControl < 0)
+            if (lastControl < 0 && doResetIntegrator)
             {
                 pidController.resetIntegrator();
             }
@@ -41,7 +43,7 @@ public:
         }
         else
         {
-            if (lastControl > 0)
+            if (lastControl > 0 && doResetIntegrator)
             {
                 pidController.resetIntegrator();
             }
